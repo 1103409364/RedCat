@@ -12,7 +12,7 @@ import { GlobalStyled } from './style.js';
 import { Iconfont } from './statics/iconfont/iconfont.js';
 import store from './store';
 
-// 首次加载的时候,处理登陆
+// 首次载入或者刷新都会从本地 localstorage 读取数据
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './pages/login/util/setAuthToken';
 import { actionCreators } from './pages/login/store';
@@ -24,8 +24,11 @@ if (localStorage.jwtToken) {
     store.dispatch(actionCreators.setCurrentUser(decoded));
 
     const currentTime = Date.now() / 1000;
+     // 检测 token 是否过期
     if (decoded.exp < currentTime) {
+        // 过期退出
         store.dispatch(actionCreators.logoutUser());
+        // 跳转到登录页
         window.location.href = '/login'
     }
 }

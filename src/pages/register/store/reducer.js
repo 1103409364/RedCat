@@ -16,6 +16,8 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.GET_ERRORS:
             return state.set('errors', fromJS(action.payload));
+        case actionTypes.CLEAR_ERRORS:
+            return state.set('errors', fromJS(action.payload));
         default:
             return state;
     }

@@ -22,12 +22,10 @@ export const loginUser = (user) => dispatch => {
         });
 }
 
-export const setCurrentUser = decoded => {
-    return {
-        type: actionTypes.SET_CURRENT_USER,
-        payload: decoded
-    }
-}
+export const setCurrentUser = decoded => ({
+    type: actionTypes.SET_CURRENT_USER,
+    payload: decoded
+})
 
 export const logoutUser = (history) => dispatch => {
     // 删除 token
@@ -37,3 +35,11 @@ export const logoutUser = (history) => dispatch => {
     dispatch(setCurrentUser({}));
     history.push('/login');
 }
+// 清空错误信息
+export const clearErrors = () => ({
+    type: actionTypes.CLEAR_ERRORS,
+    payload: {
+        email: '',
+        password: '',
+    }
+})

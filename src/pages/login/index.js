@@ -1,8 +1,7 @@
 import React from 'react';
-// import { Redirect } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { actionCreators } from './store';
 import {
     LoginWrapper,
@@ -42,45 +41,54 @@ class Login extends React.PureComponent {
         this.props.loginUser(user);
     }
 
-    componentDidMount() {
-        // 已登录访问登陆页时,立即跳转到首页
-        if (this.props.isAuthenticated) {
-            this.props.history.push('/');
-        }
+    // componentDidMount() {
+    //     // 已登录访问登陆页时,立即跳转到首页
+    //     if (this.props.isAuthenticated) {
+    //         this.props.history.push('/');
+    //     }
+    // }
+    // 组件卸载时,清空 error
+    componentWillUnmount() {
+        this.props.clearErrors();
     }
 
     render() {
-        const { errors } = this.props;
-        return (
-            <LoginWrapper>
-                <LoginBox>
-                    <LoginTitle>
-                        <Link to="/login">
-                            <SignIn>登陆</SignIn>
-                        </Link>
-                        <Link to="/register">
-                            <SignUp>注册</SignUp>
-                        </Link>
-                    </LoginTitle>
-                    <Input
-                        placeholder="邮箱"
-                        name="email"
-                        value={this.state.email}
-                        onChange={this.handleInputChange} />
-                    <Tip>{errors.get('email')}</Tip>
-                    <Input
-                        placeholder="密码"
-                        name="password"
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.handleInputChange} />
-                    <Tip>{errors.get('password')}</Tip>
-                    <Button
-                        onClick={this.handleSubmit}
-                    >登陆</Button>
-                </LoginBox>
-            </LoginWrapper>
-        )
+        const { isAuthenticated, errors } = this.props;
+        // isAuthenticated 通过验证,跳转到首页, 不使用生命周期函数实现
+        if (!isAuthenticated) {
+            return (
+                <LoginWrapper>
+                    <LoginBox>
+                        <LoginTitle>
+                            <Link to="/login">
+                                <SignIn>登陆</SignIn>
+                            </Link>
+                            <Link to="/register">
+                                <SignUp>注册</SignUp>
+                            </Link>
+                        </LoginTitle>
+                        <Input
+                            placeholder="邮箱"
+                            name="email"
+                            value={this.state.email}
+                            onChange={this.handleInputChange} />
+                        <Tip>{errors.get('email')}</Tip>
+                        <Input
+                            placeholder="密码"
+                            name="password"
+                            type="password"
+                            value={this.state.password}
+                            onChange={this.handleInputChange} />
+                        <Tip>{errors.get('password')}</Tip>
+                        <Button
+                            onClick={this.handleSubmit}
+                        >登陆</Button>
+                    </LoginBox>
+                </LoginWrapper>
+            )
+        } else {
+            return <Redirect to="/" />
+        }
     }
 }
 
@@ -98,7 +106,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     loginUser(user) {
         dispatch(actionCreators.loginUser(user));
-    }
+    },
+    clearErrors() {
+        dispatch(actionCreators.clearErrors());
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));

@@ -1,7 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter,Redirect } from 'react-router-dom';
 import { actionCreators } from './store';
 import {
     LoginWrapper,
@@ -46,59 +46,67 @@ class Register extends React.PureComponent {
         this.props.registerUser(user, this.props.history);
     }
 
-    componentDidMount() {
-        // 检查是否经过登陆验证
-        // 如果用户已经登陆了,当用户再访问登陆或者注册的路由时,应该立即跳转到首页
-        if (this.props.isAuthenticated) {
-            this.props.history.push('/');
-        }
+    // componentDidMount() {
+    //     // 检查是否经过登陆验证
+    //     // 如果用户已经登陆了,当用户再访问登陆或者注册的路由时,应该立即跳转到首页
+    //     if (this.props.isAuthenticated) {
+    //         this.props.history.push('/');
+    //     }
+    // }
+    componentWillUnmount() {
+        this.props.clearErrors();
     }
 
     render() {
-        const { errors } = this.props;
-        return (
-            <LoginWrapper>
-                <LoginBox>
-                    <LoginTitle>
-                        <Link to="/login">
-                            <SignIn>登陆</SignIn>
-                        </Link>
-                        <Link to="/register">
-                            <SignUp >注册</SignUp>
-                        </Link>
-                    </LoginTitle>
-                    <Input
-                        name="name"
-                        placeholder="用户名"
-                        value={this.state.name}
-                        onChange={this.handleInputChange}/>
-                    <Tip>{errors.get('name')}</Tip>
-                    <Input
-                        name="email"
-                        placeholder="邮箱"
-                        value={this.state.email}
-                        onChange={this.handleInputChange} />
-                    <Tip>{errors.get('email')}</Tip>
-                    <Input
-                        name="password"
-                        placeholder="密码"
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.handleInputChange} />
-                    <Tip>{errors.get('password')}</Tip>
-                    <Input
-                        name="password_confirm"
-                        placeholder="确认密码"
-                        type="password"
-                        value={this.state.password_confirm}
-                        onChange={this.handleInputChange} />
-                    <Tip>{errors.get('password_confirm')}</Tip>
-                    <Button
-                        onClick={this.handleSubmit}
-                    >注册</Button>
-                </LoginBox>
-            </LoginWrapper>
-        )
+        const { isAuthenticated, errors } = this.props;
+
+        if (!isAuthenticated) {
+            return (
+                <LoginWrapper>
+                    <LoginBox>
+                        <LoginTitle>
+                            <Link to="/login">
+                                <SignIn>登陆</SignIn>
+                            </Link>
+                            <Link to="/register">
+                                <SignUp >注册</SignUp>
+                            </Link>
+                        </LoginTitle>
+                        <Input
+                            name="name"
+                            placeholder="用户名"
+                            value={this.state.name}
+                            onChange={this.handleInputChange} />
+                        <Tip>{errors.get('name')}</Tip>
+                        <Input
+                            name="email"
+                            placeholder="邮箱"
+                            value={this.state.email}
+                            onChange={this.handleInputChange} />
+                        <Tip>{errors.get('email')}</Tip>
+                        <Input
+                            name="password"
+                            placeholder="密码"
+                            type="password"
+                            value={this.state.password}
+                            onChange={this.handleInputChange} />
+                        <Tip>{errors.get('password')}</Tip>
+                        <Input
+                            name="password_confirm"
+                            placeholder="确认密码"
+                            type="password"
+                            value={this.state.password_confirm}
+                            onChange={this.handleInputChange} />
+                        <Tip>{errors.get('password_confirm')}</Tip>
+                        <Button
+                            onClick={this.handleSubmit}
+                        >注册</Button>
+                    </LoginBox>
+                </LoginWrapper>
+            )
+        } else {
+            return <Redirect to="/" />
+        }
     }
 }
 
@@ -115,7 +123,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     registerUser(user, history) {
         dispatch(actionCreators.registerUser(user, history))
-    }
+    },
+    clearErrors() {
+        dispatch(actionCreators.clearErrors());
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Register));

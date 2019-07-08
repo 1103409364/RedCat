@@ -21,6 +21,8 @@ export default (state = defaultState, action) => {
         // 错误处理
         case actionTypes.GET_ERRORS:
             return state.set('errors', fromJS(action.payload));
+        case actionTypes.CLEAR_ERRORS:
+            return state.set('errors', fromJS(action.payload));
         default:
             return state;
     }
