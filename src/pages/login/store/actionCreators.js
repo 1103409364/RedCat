@@ -43,3 +43,19 @@ export const clearErrors = () => ({
         password: '',
     }
 })
+// 发送激活邮件
+export const sendConfirmMail = () => dispatch => {
+    axios.get('/api/users/confirmation')
+        .then(res => {
+            if (res.data.success) {
+                alert('激活邮件已发送，请前往邮箱按照提示激活后，重新登陆');
+                // 去除登陆状态
+                // 删除 token
+                localStorage.removeItem('jwtToken');
+                // 去掉请求头的 token
+                setAuthToken(false);
+                dispatch(setCurrentUser({}));
+            }
+        });
+}
+

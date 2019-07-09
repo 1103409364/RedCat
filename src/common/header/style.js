@@ -26,17 +26,35 @@ export const ItemWrapper = styled.div`
         font-size: 20px;
         line-height: 56px;
     }
+    .avatar {
+        float: right;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-top:3px;
+    }
 `
 export const NavItem = styled.div`
     line-height: 56px;
     padding: 0 15px;
     color: #333;
+    &.email {
+        float: right;
+        padding-right: 0;
+        color: #ec6149;
+    }
+    &.logout {
+        float: right;
+        padding-right: 0;
+    }
     &.left {
         float: left;
     }
     &.right {
         float: right;
         color: #969696;
+
     }
     &.active {
         color: #ea6f5a;

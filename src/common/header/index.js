@@ -5,6 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 // import * as actionCreators from './store/actionCreators.js'
 import { actionCreators } from './store'
 import { actionCreators as loginActionCreators } from '../../pages/login/store'
+// import axios from 'axios';
 
 import {
     HeaderWrapper,
@@ -62,7 +63,7 @@ class Header extends React.PureComponent {
     }
 
     render() {
-        const { focused, handleInputFocus, handleInputBlur, list, logoutUser, history } = this.props;
+        const { focused, handleInputFocus, handleInputBlur, list, logoutUser, history, user, isAuthenticated,sendConfirmMail } = this.props;
         return (
             <HeaderWrapper>
                 <Nav>
@@ -79,13 +80,10 @@ class Header extends React.PureComponent {
                         {
                             // 路由到注册页
                             // 登陆成功的时候隐藏注册按钮
-                            this.props.isAuthenticated
-                            ?
-                            null
-                            :
-                            <Link to="/register" >
-                                <Button className="reg">注册</Button>
-                            </Link>
+                            isAuthenticated ? null :
+                                <Link to="/register" >
+                                    <Button className="reg">注册</Button>
+                                </Link>
                         }
 
                     </Addition>
@@ -97,20 +95,30 @@ class Header extends React.PureComponent {
 
                         <NavItem className="left">下载App</NavItem>
                         {
+                            user.get('islive') ? null : isAuthenticated ?
+                                <NavItem className="email"
+                                    onClick={sendConfirmMail}
+                                >激活 Email</NavItem> : null
+                        }
+                        {
                             // 条件渲染,根据 isAuthenticated 的值,渲染不同的组件.
                             // 点击登陆跳转到登录页
                             this.props.isAuthenticated
-                            ?
-                            <NavItem
-                                className="right"
-                                onClick={() => logoutUser(history)}
-                            >
-                                退出
-                            </NavItem>
-                            :
-                            <Link to="/login" >
-                                <NavItem className="right">登陆</NavItem>
-                            </Link>
+                                ?
+                                <div>
+                                    <NavItem
+                                        className="right logout"
+                                        onClick={() => logoutUser(history)}
+                                    >
+                                        退出
+                                    </NavItem>
+                                    <img className="avatar" src={user.get('avatar')} alt="avatar"></img>
+                                </div>
+
+                                :
+                                <Link to="/login" >
+                                    <NavItem className="right">登陆</NavItem>
+                                </Link>
                         }
 
                         <NavItem className="right">
@@ -153,6 +161,7 @@ const mapStateToProps = state => {
         page: state.getIn(['header', 'page']),
         totalPage: state.getIn(['header', 'totalPage']),
         isAuthenticated: state.getIn(['login', 'isAuthenticated']),
+        user: state.getIn(['login', 'user']),
     }
 }
 
@@ -195,6 +204,9 @@ const mapDispatchToProps = dispatch => {
         // 退出登陆,从 login 中引入 loginActionCreators
         logoutUser(history) {
             dispatch(loginActionCreators.logoutUser(history));
+        },
+        sendConfirmMail() {
+            dispatch(loginActionCreators.sendConfirmMail());
         }
     }
 }
