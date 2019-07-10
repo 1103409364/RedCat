@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
+import { actionCreators as headerActionCreators} from '../../common/header/store';
 import Topic from './components/Topic';
 import List from './components/List';
 import RecommendItem from './components/RecommendItem';
@@ -35,7 +36,7 @@ class Home extends React.PureComponent {
                     <DownLoadLink />
                     <RecommendedAuthors />
                 </HomwRight>
-                {/* 回到顶部 */}
+                {/* 回到顶部 */  console.log(this.props.history.location.pathname)}
                 {this.props.showScroll ? <BackTop onClick={this.handleScrollTop}>BACK</BackTop> : null}
             </HomwWrapper>
         )
@@ -46,9 +47,11 @@ class Home extends React.PureComponent {
     }
 
     componentDidMount() {
+        this.bindScrollEvents();
+
         // 获得初始化数据
         this.props.getHomeData();
-        this.bindScrollEvents();
+        this.props.changePath(this.props.history.location.pathname);
     }
     // 在 window 上绑定了事件，可能会影响其他组件。在组件卸载的时候移除这个事件监听
     componentWillUnmount() {
@@ -73,6 +76,9 @@ const mapDispatchToProps = dispatch => ({
         } else {
             dispatch(actionCreators.toggleTopShow(false))
         }
+    },
+    changePath(pathname) {
+        dispatch(headerActionCreators.changePath(pathname));
     }
 });
 

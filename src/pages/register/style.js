@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import logoPic from '../../statics/logo.png';
 
 export const LoginWrapper = styled.div`
     box-sizing: border-box;
@@ -7,6 +8,7 @@ export const LoginWrapper = styled.div`
     right: 0;
     bottom: 0;
     top: 0;
+    background: url(${logoPic}) no-repeat 90% bottom;
     background-color: #eee;
 `
 export const LoginBox = styled.div`

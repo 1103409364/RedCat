@@ -43,4 +43,11 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}`
+}
+/* 解决chrome浏览器输入框变黄 */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+	box-shadow: 0 0 0px 1000px #eee inset !important; 
+}
+`

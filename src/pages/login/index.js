@@ -18,7 +18,7 @@ class Login extends React.PureComponent {
     constructor() {
         super();
         this.state = {
-            email: '',
+            account: '', //账号是邮箱或者用户名
             password: '',
             errors: {}
         }
@@ -35,7 +35,7 @@ class Login extends React.PureComponent {
     handleSubmit(e) {
         e.preventDefault();
         const user = {
-            email: this.state.email,
+            account: this.state.account,
             password: this.state.password,
         }
         this.props.loginUser(user);
@@ -68,11 +68,11 @@ class Login extends React.PureComponent {
                             </Link>
                         </LoginTitle>
                         <Input
-                            placeholder="邮箱"
-                            name="email"
-                            value={this.state.email}
+                            placeholder="邮箱或者用户名"
+                            name="account"
+                            value={this.state.account}
                             onChange={this.handleInputChange} />
-                        <Tip>{errors.get('email')}</Tip>
+                        <Tip>{errors.get('account')}</Tip>
                         <Input
                             placeholder="密码"
                             name="password"

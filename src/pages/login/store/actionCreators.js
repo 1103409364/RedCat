@@ -33,13 +33,13 @@ export const logoutUser = (history) => dispatch => {
     // 去掉请求头的 token
     setAuthToken(false);
     dispatch(setCurrentUser({}));
-    history.push('/login');
+    // history.push('/login');
 }
 // 清空错误信息
 export const clearErrors = () => ({
     type: actionTypes.CLEAR_ERRORS,
     payload: {
-        email: '',
+        account: '',
         password: '',
     }
 })

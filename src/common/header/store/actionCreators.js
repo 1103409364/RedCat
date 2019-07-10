@@ -29,6 +29,11 @@ export const changePage = (page) => ({
     page
 });
 
+export const changePath = (pathname) => ({
+    type: actionTypes.CHANGE_PATH,
+    pathname
+});
+
 export const getList = () => {
     return dispatch => {
         axios.get('/api/header.json').then(res => {

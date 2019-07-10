@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { actionCreators } from './store';
+import { actionCreators as headerActionCreators} from '../../common/header/store';
+
 import {
     DetailWrapper,
     Header,
@@ -24,6 +26,7 @@ class Detail extends React.PureComponent {
 
     componentDidMount() {
         this.props.getDetail(this.props.match.params.id);
+        this.props.changePath(this.props.history.location.pathname);
     }
 }
 
@@ -36,6 +39,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getDetail(id) {
         dispatch(actionCreators.getDetail(id))
+    },
+    changePath(pathname) {
+        dispatch(headerActionCreators.changePath(pathname));
     }
 });
 

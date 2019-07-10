@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import logoPic from '../../statics/logo.png';
 
 export const LoginWrapper = styled.div`
     box-sizing: border-box;
@@ -7,6 +8,7 @@ export const LoginWrapper = styled.div`
     right: 0;
     bottom: 0;
     top: 0;
+    background: url(${logoPic}) no-repeat 90% bottom;
     background-color: #eee;
 `
 export const LoginBox = styled.div`
@@ -37,8 +39,8 @@ export const LoginTitle = styled.h4`
 `
 export const SignIn = styled.span`
     font-weight: 700;
-    color: #ea6f5a;
-    border-bottom: 2px solid #ea6f5a;
+    color: #e7503f;
+    border-bottom: 2px solid #e7503f;
     float: left;
     margin-right: 30px;
 `
@@ -52,7 +54,6 @@ export const Input = styled.input`
     box-sizing: border-box;
     width: 100%;
     height: 50px;
-    // margin-bottom: 20px;
     padding: 4px 12px;
     border: 1px solid #c8c8c8;
     border-radius: 4px;

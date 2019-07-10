@@ -9,6 +9,7 @@ const defaultState = fromJS({
     list: [],
     page: 1,
     totalPage: 1,
+    pathname: '/', //当前所处的页面,根据这个属性改变导航样式: 选中或者未选中
 });
 
 export default (state=defaultState,action ) => {
@@ -32,6 +33,8 @@ export default (state=defaultState,action ) => {
             return state.set('mouseIn', false);
         case actionTypes.CHANGE_PAGE:
             return state.set('page', action.page);
+        case actionTypes.CHANGE_PATH:
+            return state.set('pathname', action.pathname);
         default:
             return state;
     }

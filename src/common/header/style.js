@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import logoPic from '../../statics/logo.png';
+// 主色调 #e7503f
+const rrcolor = '#e7503f';
 
 export const HeaderWrapper = styled.div`
     height: 56px;
@@ -9,9 +11,8 @@ export const Logo = styled.div`
     float: left;
     height: 56px;
     width: 100px;
-    background: url(${logoPic});
-    background-size: contain;
-    background-repeat: no-repeat;
+    background: url(${logoPic}) no-repeat center bottom;
+    background-size: 50px 50px;
 `
 export const Nav = styled.div`
     max-width: 1440px;
@@ -28,11 +29,11 @@ export const ItemWrapper = styled.div`
     }
     .avatar {
         float: right;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         vertical-align: middle;
-        margin-top:3px;
+        margin-top:8px;
     }
 `
 export const NavItem = styled.div`
@@ -42,9 +43,9 @@ export const NavItem = styled.div`
     &.email {
         float: right;
         padding-right: 0;
-        color: #ec6149;
+        color: ${rrcolor};
     }
-    &.logout {
+    &.logout, &.login {
         float: right;
         padding-right: 0;
     }
@@ -213,14 +214,14 @@ export const Button = styled.div`
     margin-right: 20px;
     padding: 0 20px;
     border-radius: 19px;
-    border: 1px solid #ec6149;
+    border: 1px solid ${rrcolor};
     font-size: 14px;
     &.wrightting {
         color: #fff;
-        background-color: #ec6149;
+        background-color: ${rrcolor};
     }
     &.reg {
-        color: #ec6149;
+        color: ${rrcolor};
     }
     cursor: pointer;
 `

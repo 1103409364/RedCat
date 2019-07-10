@@ -5,6 +5,8 @@ import { CSSTransition } from 'react-transition-group';
 // import * as actionCreators from './store/actionCreators.js'
 import { actionCreators } from './store'
 import { actionCreators as loginActionCreators } from '../../pages/login/store'
+import classNames from 'classnames';
+
 // import axios from 'axios';
 
 import {
@@ -63,7 +65,12 @@ class Header extends React.PureComponent {
     }
 
     render() {
-        const { focused, handleInputFocus, handleInputBlur, list, logoutUser, history, user, isAuthenticated,sendConfirmMail } = this.props;
+        const { focused, handleInputFocus, handleInputBlur, list, logoutUser, history, user, isAuthenticated, sendConfirmMail,pathname } = this.props;
+        const homeClass = classNames({
+            'left': true,
+            'active': pathname === '/' //根据当前路径改变class 从而改变样式
+        });
+
         return (
             <HeaderWrapper>
                 <Nav>
@@ -90,7 +97,7 @@ class Header extends React.PureComponent {
 
                     <ItemWrapper>
                         <Link to="/">
-                            <NavItem className="left active">首页</NavItem>
+                            <NavItem className={ homeClass }>首页</NavItem>
                         </Link>
 
                         <NavItem className="left">下载App</NavItem>
@@ -103,8 +110,7 @@ class Header extends React.PureComponent {
                         {
                             // 条件渲染,根据 isAuthenticated 的值,渲染不同的组件.
                             // 点击登陆跳转到登录页
-                            this.props.isAuthenticated
-                                ?
+                            this.props.isAuthenticated ?
                                 <div>
                                     <NavItem
                                         className="right logout"
@@ -114,16 +120,17 @@ class Header extends React.PureComponent {
                                     </NavItem>
                                     <img className="avatar" src={user.get('avatar')} alt="avatar"></img>
                                 </div>
-
                                 :
                                 <Link to="/login" >
-                                    <NavItem className="right">登陆</NavItem>
+                                    <NavItem className="right login">登陆</NavItem>
                                 </Link>
                         }
-
-                        <NavItem className="right">
-                            <i className="iconfont fontStyle">&#xe636;</i>
-                        </NavItem>
+                        {
+                            this.props.isAuthenticated ?
+                                <NavItem className="right">
+                                    {`用户名: ${user.get('name')}`}
+                                </NavItem> : null
+                        }
                         <SearchWrapper>
                             <CSSTransition
                                 timeout={300}
@@ -160,6 +167,7 @@ const mapStateToProps = state => {
         list: state.getIn(['header', 'list']),
         page: state.getIn(['header', 'page']),
         totalPage: state.getIn(['header', 'totalPage']),
+        pathname: state.getIn(['header', 'pathname']),
         isAuthenticated: state.getIn(['login', 'isAuthenticated']),
         user: state.getIn(['login', 'user']),
     }
