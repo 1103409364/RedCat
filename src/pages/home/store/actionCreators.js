@@ -17,6 +17,23 @@ export const getHomeData = () => {
     }
 }
 
+const changeBannerImg = bannerImg => ({
+    type: actionTypes.CHANGE_BANNERIMG,
+    bannerImg
+})
+// 获得 banner 图
+export const getBannerImg = () => {
+    return (dispatch) => {
+        axios.get('/api/home/bannerImg').then(res => {
+            const imgUrl = res.data.defaultUrl;
+            // console.log(res.data)
+            dispatch(changeBannerImg(imgUrl));
+        }).catch(() => {
+            console.log('error');
+        })
+    }
+}
+
 // 增加文章列表
 const addArticleList = (articleList, nextPage) => ({
     type: actionTypes.ADD_ARTICLE_LIST,

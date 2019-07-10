@@ -12,23 +12,46 @@ export const HomwWrapper = styled.div`
         width: 0;
         height: 0;
         visibility: hidden;
+    },
+    a {
+        text-decoration: none;
+        color: #fff;
     }
 `
 export const HomwLeft = styled.div`
     float: left;
-    padding-left: 15px;
+    // padding-left: 15px;
     width: 625px;
     // margin: 0 auto;
-    .banner-img {
-        width: 625px;
-        height: 270px;
-        border-radius: 6px;
-    }
+
 `
 export const HomwRight = styled.div`
     width: 280px;
     float: right;
 `
+export const DailyWallpaper = styled.div`
+    background: url(${props => props.bannerImg}) no-repeat center center;
+    background-size: 960px auto;
+    width: 960px;
+    height: 300px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    position: relative;
+    span {
+        font-size: 18px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding: 10px;
+        opacity: 0;
+        background-color: #33333347;
+        transition: all .3s ease;
+    }
+    &:hover span {
+        opacity: 1;
+    }
+`
+
 export const TopicWrapper = styled.div`
     padding: 20px 0 10px 0;
     // margin-left: -18px;
@@ -259,6 +282,7 @@ export const LoadMore =styled.div`
     color: #fff;
 `
 export const BackTop =styled.div`
+    color: #999;
     position: fixed;
     right: 100px;
     bottom: 30px;

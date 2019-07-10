@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 // import * as actionCreators from './store/actionCreators.js'
-import { actionCreators } from './store'
-import { actionCreators as loginActionCreators } from '../../pages/login/store'
+import { actionCreators } from './store';
+import { actionCreators as loginActionCreators } from '../../pages/login/store';
 import classNames from 'classnames';
 
 // import axios from 'axios';
@@ -67,6 +67,7 @@ class Header extends React.PureComponent {
     render() {
         const { focused, handleInputFocus, handleInputBlur, list, logoutUser, history, user, isAuthenticated, sendConfirmMail,pathname } = this.props;
         const homeClass = classNames({
+            'home': true,
             'left': true,
             'active': pathname === '/' //根据当前路径改变class 从而改变样式
         });

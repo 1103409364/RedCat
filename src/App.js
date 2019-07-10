@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './common/header';
-import Home from './pages/home';
+import Home from './pages/home/loadable.js';
 import Detail from './pages/detail/loadable.js';
 import Write from './pages/write/loadable.js';
 import Login from './pages/login/loadable.js';

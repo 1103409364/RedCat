@@ -45,6 +45,9 @@ export const NavItem = styled.div`
         padding-right: 0;
         color: ${rrcolor};
     }
+    &.home {
+        padding-left: 0;
+    }
     &.logout, &.login {
         float: right;
         padding-right: 0;

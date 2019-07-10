@@ -30,6 +30,8 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.CHANGE_HOME_DATA:
             return changeHomeData(state, action);
+        case actionTypes.CHANGE_BANNERIMG:
+            return state.set('bannerImg', action.bannerImg);
 
         case actionTypes.ADD_ARTICLE_LIST:
             return state.merge({
