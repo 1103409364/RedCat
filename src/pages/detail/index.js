@@ -27,6 +27,8 @@ class Detail extends React.PureComponent {
     componentDidMount() {
         this.props.getDetail(this.props.match.params.id);
         this.props.changePath(this.props.history.location.pathname);
+
+        document.title = 'detail-rr';
     }
 }
 

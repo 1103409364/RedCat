@@ -41,12 +41,14 @@ class Login extends React.PureComponent {
         this.props.loginUser(user);
     }
 
-    // componentDidMount() {
-    //     // 已登录访问登陆页时,立即跳转到首页
-    //     if (this.props.isAuthenticated) {
-    //         this.props.history.push('/');
-    //     }
-    // }
+    componentDidMount() {
+        // 已登录访问登陆页时,立即跳转到首页
+        // if (this.props.isAuthenticated) {
+        //     this.props.history.push('/');
+        // }
+
+        document.title = '登陆-rr';
+    }
     // 组件卸载时,清空 error
     componentWillUnmount() {
         this.props.clearErrors();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 // import * as actionCreators from './store/actionCreators.js'
 import { actionCreators } from './store';
 import { actionCreators as loginActionCreators } from '../../pages/login/store';
@@ -15,10 +15,10 @@ import {
     Nav,
     ItemWrapper,
     NavItem,
-    NavSearch,
+    // NavSearch,
     Addition,
     Button,
-    SearchWrapper,
+    // SearchWrapper,
     SearchInfo,
     SearchInfoTitle,
     SearchInfoSwitch,
@@ -101,7 +101,7 @@ class Header extends React.PureComponent {
                             <NavItem className={ homeClass }>首页</NavItem>
                         </Link>
 
-                        <NavItem className="left">下载App</NavItem>
+                        {/* <NavItem className="left">下载App</NavItem> */}
                         {
                             user.get('islive') ? null : isAuthenticated ?
                                 <NavItem className="email"
@@ -132,7 +132,7 @@ class Header extends React.PureComponent {
                                     {`用户名: ${user.get('name')}`}
                                 </NavItem> : null
                         }
-                        <SearchWrapper>
+                        {/* <SearchWrapper>
                             <CSSTransition
                                 timeout={300}
                                 in={focused}
@@ -148,7 +148,7 @@ class Header extends React.PureComponent {
                                 className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}
                             >&#xe600;</i>
                             {this.getListArea()}
-                        </SearchWrapper>
+                        </SearchWrapper> */}
                     </ItemWrapper>
                 </Nav>
             </HeaderWrapper>

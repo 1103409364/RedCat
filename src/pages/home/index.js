@@ -61,6 +61,8 @@ class Home extends React.PureComponent {
         this.props.getHomeData();
         this.props.getBannerImg();
         this.props.changePath(this.props.history.location.pathname);
+        // 更改标签页标题
+        document.title = '首页-rr';
     }
     // 在 window 上绑定了事件，可能会影响其他组件。在组件卸载的时候移除这个事件监听
     componentWillUnmount() {

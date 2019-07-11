@@ -46,13 +46,15 @@ class Register extends React.PureComponent {
         this.props.registerUser(user, this.props.history);
     }
 
-    // componentDidMount() {
-    //     // 检查是否经过登陆验证
-    //     // 如果用户已经登陆了,当用户再访问登陆或者注册的路由时,应该立即跳转到首页
-    //     if (this.props.isAuthenticated) {
-    //         this.props.history.push('/');
-    //     }
-    // }
+    componentDidMount() {
+        // 检查是否经过登陆验证
+        // 如果用户已经登陆了,当用户再访问登陆或者注册的路由时,应该立即跳转到首页
+        // if (this.props.isAuthenticated) {
+        //     this.props.history.push('/');
+        // }
+
+        document.title = '注册-rr';
+    }
     componentWillUnmount() {
         this.props.clearErrors();
     }
