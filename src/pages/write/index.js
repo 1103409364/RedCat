@@ -98,9 +98,9 @@ class Write extends React.PureComponent {
     }
 
     componentDidMount() {
-        if (this.ipt) {
-            this.ipt.focus();
-        }
+        // if (this.ipt) {
+        //     this.ipt.focus();
+        // }
         // 更改地址栏路径
         this.props.changePath(this.props.history.location.pathname);
         document.title = '写文章-rr';
@@ -124,6 +124,7 @@ class Write extends React.PureComponent {
                             type="text"
                             value={title}
                             placeholder="请输入标题"
+                            autoFocus="true"
                         />
                     </div>
                     <div className={this.state.focus === true ? 'textareaWrap focus' : 'textareaWrap'}>

@@ -3,11 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { actionCreators } from './store';
 import { actionCreators as headerActionCreators } from '../../common/header/store';
-// import Topic from './components/Topic';
 import List from './components/List';
-// import RecommendItem from './components/RecommendItem';
-// import DownLoadLink from './components/DownLoadLink';
-import RecommendedAuthors from './components/RecommendedAuthors';
+import Calendar from './components/Calendar';
 
 import {
     HomwWrapper,
@@ -28,22 +25,20 @@ class Home extends React.PureComponent {
     render() {
         return (
             <HomwWrapper>
-                <a href={this.props.bannerImg} target="_blank" rel="noopener noreferrer">
-                    <DailyWallpaper bannerImg={this.props.bannerImg} >
+                <DailyWallpaper bannerImg={this.props.bannerImg} >
+                    <a className="bannerTitle" href={this.props.bannerImg} target="_blank" rel="noopener noreferrer">
                         <span>
                             Bing 每日高清壁纸- 精彩，从这里开始
                         </span>
-                    </DailyWallpaper>
-                    
-                </a>
+                    </a>
+                </DailyWallpaper>
+
                 <HomwLeft>
                     {/* <Topic /> */}
                     <List />
                 </HomwLeft>
                 <HomwRight>
-                    {/* <RecommendItem /> */}
-                    {/* <DownLoadLink /> */}
-                    <RecommendedAuthors />
+                    <Calendar callback={(date) => {console.log(date)}} />
                 </HomwRight>
                 {/* 回到顶部 */}
                 {this.props.showScroll ? <BackTop onClick={this.handleScrollTop}>BACK</BackTop> : null}

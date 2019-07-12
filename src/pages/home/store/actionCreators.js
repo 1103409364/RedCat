@@ -8,9 +8,10 @@ const changeHomeData = data => ({
 // 获得页面初始数据
 export const getHomeData = () => {
     return dispatch => {
-        axios.get('/api/home.json').then(res => {
-            const data = res.data.data;
-            dispatch(changeHomeData(data));
+        axios.get('/api/home/articleList').then(res => {
+            const result = res.data.data;
+            console.log(result)
+            dispatch(changeHomeData(result));
         }).catch(() => {
             console.log('error');
         })

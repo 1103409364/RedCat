@@ -100,8 +100,7 @@ $rrcolor: #e7503f;
 
             // caret-color: #5729e9;
             &:focus {
-                // 边框加1 padding减1 抵消
-                border-top: 2px solid $rrcolor;
+                border-top: 1px solid $rrcolor;
                 padding-top: 29px;
             }
 

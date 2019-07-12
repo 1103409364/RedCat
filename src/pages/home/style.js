@@ -13,10 +13,8 @@ export const HomwWrapper = styled.div`
         height: 0;
         visibility: hidden;
     },
-    a {
-        text-decoration: none;
-        color: #fff;
-    }
+    
+
 
     @media screen and (max-width: 900px) {
         box-sizing: border-box;
@@ -47,18 +45,27 @@ export const DailyWallpaper = styled.div`
     margin-bottom: 20px;
     border-radius: 6px;
     position: relative;
-    span {
-        font-size: 18px;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        padding: 10px;
-        opacity: 0;
-        background-color: #33333347;
-        transition: all .3s ease;
-    }
-    &:hover span {
-        opacity: 1;
+
+    .bannerTitle {
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        color: #fff;
+
+        span {
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            padding: 10px;
+            opacity: 0;
+            background-color: #33333347;
+            transition: all .3s ease;
+        }
+        &:hover span {
+            opacity: 1;
+        }
     }
 `
 

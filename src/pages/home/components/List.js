@@ -13,12 +13,12 @@ class List extends React.PureComponent {
                     articleList.map((item) => (
                         // 跳转的时候,传一个 id 进去,detail 页的 props 就能接收到 id
                         // 动态路由获取参数
-                        <Link to={`/detail/${item.get('id')}`} target="_blank" key={item.get('id')}>
+                        <Link to={`/detail/${item.get('id')}`} target="_blank" key={item.get('_id')}>
                             <ListItem>
                                 {/* <img className="pic" src={item.get('imgUrl')} alt="pic" /> */}
                                 <ListContent>
                                     <h3 className="title">{item.get('title')}</h3>
-                                    <p className="desc">{item.get('desc')}</p>
+                                    <p className="desc">{item.get('html')}</p>
                                 </ListContent>
                             </ListItem>
                         </Link>
