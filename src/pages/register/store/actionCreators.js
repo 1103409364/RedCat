@@ -8,7 +8,12 @@ export const registerUser = (user, history) => dispatch => {
             history.push('./login');
         })
         .catch(err => {
-            // console.log(err);
+            // 加个错误处理,防止服务器没开的时候程序崩溃
+            if (err.response.status === 500) {
+                alert(err + ';' + err.response.data);
+                return;
+            }
+
             dispatch({
                 type: actionTypes.GET_ERRORS,
                 payload: err.response.data

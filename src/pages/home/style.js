@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const HomwWrapper = styled.div`
-    // overflow: hidden; //和margin: 0 auto; 冲突
-    width: 960px;
+    max-width: 960px;
     margin: 0 auto;
     padding-top: 30px;
     &::after {
@@ -40,7 +39,7 @@ export const HomwRight = styled.div`
 export const DailyWallpaper = styled.div`
     background: url(${props => props.bannerImg}) no-repeat center center;
     background-size: 960px auto;
-    width: 100%;
+    // width: 100%;
     height: 300px;
     margin-bottom: 20px;
     border-radius: 6px;

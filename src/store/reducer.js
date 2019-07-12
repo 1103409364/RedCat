@@ -12,5 +12,6 @@ export default combineReducers({
     home: homeReducer,
     detail: detailReducer,
     login: loginReducer,
-    write: writeReducer
+    write: writeReducer,
+    register: registerReducer
 })
