@@ -1,59 +1,110 @@
 $inputColor: #1a73e8;
-$minHeight: 50%;
+$minHeight: 500px;
+$minWidth: 500px;
 $maxHeight: 100%;
-
-body,
-html {
-    height: 94%;
-}
-
-#root {
-    height: 100%;
-}
+// $shadow: 0 3px 2px rgba(0, 0, 0, .3);
+$shadow: none;
+// 主色调 #e7503f
+$rrcolor: #e7503f;
 
 .TextEditor {
     font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
     width: 90%;
     margin: 20px auto;
     height: 100%;
+    min-width: 900px;
+    box-sizing: border-box;
 
+    // 清除浮动
     &::after {
         content: '';
         display: table;
         clear: both;
     }
 
-    .wrap {
+    .titleEditor {
+        input.title {
+            display: block;
+            border: none;
+            outline: none;
+            width: 100%;
+            border: 0;
+            font-size: 32px;
+            line-height: 60px;
+            font-weight: 600;
+            font-synthesis: style;
+            color: #1a1a1a;
+            outline: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        ::-webkit-input-placeholder {
+            color: #999;
+        }
+
+        :-moz-placeholder {
+            /* Firefox 18- */
+            color: #999;
+        }
+
+        ::-moz-placeholder {
+            /* Firefox 19+ */
+            color: #999;
+        }
+
+        :-ms-input-placeholder {
+            color: #999;
+        }
+    }
+
+    .textareaWrap {
         float: left;
         width: 48%;
-        height: 100%;
+        min-height: $minHeight;
+        // height: 100%;
         position: relative;
         flex-direction: column;
         margin-right: 1%;
+        box-sizing: border-box;
+        box-shadow: $shadow;
+        border-top: 1px solid #f0f0f0;
+        font: 16px;
+
+        .placeholder {
+            z-index: -1;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #999;
+            position: absolute;
+            left: 0px;
+            top: 30px;
+
+            &.hide {
+                display: none;
+            }
+        }
 
         .textarea {
-            font: 400 14px Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
             line-height: 1.6;
+            // min-width: $minWidth;
             min-height: $minHeight;
-            max-height: $maxHeight;
-            padding: 30px 20px 20px 20px;
-            border-top: 1px solid #c7c7c7;
-            // outline: none;
+            // max-height: $maxHeight;
+            padding: 30px 0px 20px 0px;
+            // outline-color: $rrcolor;
+            outline: none;
             color: #202124;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
-            overflow: auto;
-            // 阴影
-            box-shadow: 0 5px 5px rgba(0, 0, 0, .3);
             // 更改光标颜色
-            caret-color: red;
+            caret-color: $rrcolor;
 
             // caret-color: #5729e9;
             &:focus {
                 // 边框加1 padding减1 抵消
-                border-top: 2px solid $inputColor;
+                border-top: 2px solid $rrcolor;
                 padding-top: 29px;
             }
+
             // 限制输入纯文本, 只有webkit支持
             -webkit-user-modify: read-write-plaintext-only;
         }
@@ -97,24 +148,7 @@ html {
                 }
             }
 
-            .TextEditor-tip {
-                height: 0;
-                overflow: hidden;
-                color: #ff0000;
-                width: 150px;
-                text-align: center;
-                position: absolute;
-                top: 0;
-                left: -150px;
-                transition: all 0.3s ease;
-            }
 
-            .TextEditor-tip.show {
-                height: 32px;
-                line-height: 32px;
-                display: block;
-                transition: all 0.3s ease;
-            }
 
             i {
                 font-size: 20px;
@@ -126,24 +160,71 @@ html {
 
     }
 
+    .TextEditor-tip {
+        height: 0;
+        font-size: 14px;
+        line-height: 32px;
+        display: block;
+        transition: all 0.3s ease;
+
+        overflow: hidden;
+        color: $rrcolor;
+        text-align: left;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all 0.3s ease;
+
+        &.show {
+            height: 32px;
+        }
+    }
+
+    .postTip {
+        position: absolute;
+        left: 50%;
+        top: -500px;
+        margin-left: -150px;
+        width: 300px;
+        font-size: 16px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #fff;
+        box-shadow: 0 0 3px #07070770;
+        border-radius: 3px;
+        transition: all .5s ease;
+        &.success {
+            color: #1a73e8;
+            top: 40%;
+        }
+
+        &.failed {
+            color: red;
+            top: 30%;
+        }
+    }
+
     .preview {
         float: left;
         box-sizing: border-box;
         width: 50%;
+        // min-width: $minWidth;
         min-height: $minHeight;
-        max-height: $maxHeight;
-        overflow: auto;
-        padding: 20px;
+        // max-height: $maxHeight;
+        // overflow: auto;
+        padding: 0 0px 20px 0;
         margin-left: 1%;
         transition: all 0.3s ease;
-        border-top: 1px solid #c7c7c7;
+        border-top: 1px solid #f0f0f0;
+        ;
         background-color: #E9EBFE;
-        box-shadow: 0 5px 5px rgba(0, 0, 0, .3);
+        box-shadow: $shadow;
         opacity: 1;
 
         &.empty {
-            opacity: 0.6;
+            opacity: 0.3;
         }
+
         // markdown 样式
         .marked .marked {
             font-family: "Microsoft Yahei", Helvetica, arial, sans-serif;
@@ -278,8 +359,6 @@ html {
         pre {
             margin: 15px 0;
             color: #516272;
-            // 代码使用等宽字体
-            font-family: 'consolas';
         }
 
         hr {
@@ -589,7 +668,7 @@ html {
             white-space: pre-wrap;
             word-break: break-all;
             display: block;
-
+            font-family: 'consolas'; //代码使用等宽字体
         }
 
         * {
@@ -617,5 +696,43 @@ html {
 
         }
 
+    }
+
+    @media screen and (max-width: 900px) {
+
+        .textareaWrap,
+        .preview {
+            // width: 100%;
+            // margin: 0;
+            box-shadow: none;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .textareaWrap,
+        .preview {
+            width: 100%;
+            float: none;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0 auto;
+            .App-btn {
+                right: 10px;
+            }
+            .placeholder {
+                left: 10px;
+            }
+        }
+      
+        .titleEditor {
+            padding: 0 10px;
+        }
+
+        & {
+            overflow: hidden;
+            width: 100%;
+            min-width: 400px;
+            margin: 0;
+        }
     }
 }

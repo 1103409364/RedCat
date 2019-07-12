@@ -31,7 +31,7 @@ class Home extends React.PureComponent {
                 <a href={this.props.bannerImg} target="_blank" rel="noopener noreferrer">
                     <DailyWallpaper bannerImg={this.props.bannerImg} >
                         <span>
-                            必应每日高清壁纸- 精彩，从这里开始
+                            Bing 每日高清壁纸- 精彩，从这里开始
                         </span>
                     </DailyWallpaper>
                     

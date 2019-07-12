@@ -4,6 +4,7 @@ import { reducer as homeReducer } from '../pages/home/store';
 import { reducer as detailReducer } from '../pages/detail/store';
 import { reducer as loginReducer } from '../pages/login/store';
 import { reducer as registerReducer } from '../pages/register/store';
+import { reducer as writeReducer } from '../pages/write/store';
 
 // reducer 拆分和整合，防止 reducer 代码量过大
 export default combineReducers({
@@ -11,5 +12,5 @@ export default combineReducers({
     home: homeReducer,
     detail: detailReducer,
     login: loginReducer,
-    register: registerReducer
+    write: writeReducer
 })

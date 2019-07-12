@@ -65,7 +65,10 @@ class Header extends React.PureComponent {
     }
 
     render() {
-        const { focused, handleInputFocus, handleInputBlur, list, logoutUser, history, user, isAuthenticated, sendConfirmMail,pathname } = this.props;
+        const { focused, handleInputFocus, handleInputBlur, list, logoutUser, history, user, isAuthenticated, sendConfirmMail, pathname } = this.props;
+        const activeItem = {
+            '/write': '写文章',
+        }
         const homeClass = classNames({
             'home': true,
             'left': true,
@@ -80,11 +83,14 @@ class Header extends React.PureComponent {
                     </Link>
 
                     <Addition>
-                        <Link to="/write">
-                            <Button className="wrightting">
-                                <i className="iconfont">&#xe62e;</i> 写文章
-                            </Button>
-                        </Link>
+                        {
+                            pathname !== '/write' ?
+                                <Link to="/write">
+                                    <Button className="wrightting">
+                                        <i className="iconfont">&#xe62e;</i> 写文章
+                                    </Button>
+                                </Link> : null
+                        }
                         {
                             // 路由到注册页
                             // 登陆成功的时候隐藏注册按钮
@@ -98,10 +104,10 @@ class Header extends React.PureComponent {
 
                     <ItemWrapper>
                         <Link to="/">
-                            <NavItem className={ homeClass }>首页</NavItem>
+                            <NavItem className={homeClass}>首页</NavItem>
                         </Link>
-
-                        {/* <NavItem className="left">下载App</NavItem> */}
+                        {/* 写文章 */}
+                        <NavItem className="left active">{activeItem[pathname]}</NavItem>
                         {
                             user.get('islive') ? null : isAuthenticated ?
                                 <NavItem className="email"
@@ -132,23 +138,6 @@ class Header extends React.PureComponent {
                                     {`用户名: ${user.get('name')}`}
                                 </NavItem> : null
                         }
-                        {/* <SearchWrapper>
-                            <CSSTransition
-                                timeout={300}
-                                in={focused}
-                                classNames="stretch"
-                            >
-                                <NavSearch
-                                    onFocus={() => handleInputFocus(list)}
-                                    onBlur={handleInputBlur}
-                                    className={focused ? 'focused' : ''}
-                                />
-                            </CSSTransition>
-                            <i
-                                className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}
-                            >&#xe600;</i>
-                            {this.getListArea()}
-                        </SearchWrapper> */}
                     </ItemWrapper>
                 </Nav>
             </HeaderWrapper>
@@ -181,34 +170,6 @@ const mapDispatchToProps = dispatch => {
             // 避免多次无意义的请求发送,提升组件性能
             list.size === 0 && dispatch(actionCreators.getList());
             dispatch(actionCreators.searchFocus());
-        },
-        // 失去焦点
-        handleInputBlur() {
-            dispatch(actionCreators.searchBlur());
-        },
-        // 鼠标进入热门搜索
-        handleMouseEnter() {
-            dispatch(actionCreators.mouseEnter());
-        },
-        // 鼠标离开热门搜索
-        handleMouseLeave() {
-            dispatch(actionCreators.mouseLeave());
-        },
-        // 切换热门搜索
-        handleChangePage(page, totalPage, spinIcon) {
-            // 使用正则去掉非数字部分,得到数字部分就是角度
-            let originAngle = spinIcon.style.transform.replace(/[^0-9]/ig, '');
-            if (originAngle) {
-                originAngle = parseInt(originAngle, 10);
-            } else {
-                originAngle = 0;
-            }
-            spinIcon.style.transform = `rotate(${originAngle + 360}deg)`;
-            if (page < totalPage) {
-                dispatch(actionCreators.changePage(++page));
-            } else {
-                dispatch(actionCreators.changePage(1));
-            }
         },
         // 退出登陆,从 login 中引入 loginActionCreators
         logoutUser(history) {

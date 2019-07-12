@@ -6,6 +6,9 @@ const rrcolor = '#e7503f';
 export const HeaderWrapper = styled.div`
     height: 56px;
     border-bottom: 1px solid #f0f0f0;
+    @media screen and (max-width: 900px) {
+        width: 100%;
+    }
 `
 export const Logo = styled.div`
     float: left;
@@ -47,6 +50,9 @@ export const NavItem = styled.div`
     }
     &.home {
         padding-left: 0;
+        @media screen and (max-width: 600px) {
+            padding: 0;
+        }
     }
     &.logout, &.login {
         float: right;
@@ -205,10 +211,11 @@ export const SearchInfoItem = styled.a`
 `
 export const Addition = styled.div`
     float: right;
-    width: 240px;
+    max-width: 220px;
     right: 0;
     top: 0;
     height: 56px;
+    margin-left: 20px;
 `
 export const Button = styled.div`
     float: right;

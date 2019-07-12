@@ -15,7 +15,7 @@ class List extends React.PureComponent {
                         // 动态路由获取参数
                         <Link to={`/detail/${item.get('id')}`} target="_blank" key={item.get('id')}>
                             <ListItem>
-                                <img className="pic" src={item.get('imgUrl')} alt="pic" />
+                                {/* <img className="pic" src={item.get('imgUrl')} alt="pic" /> */}
                                 <ListContent>
                                     <h3 className="title">{item.get('title')}</h3>
                                     <p className="desc">{item.get('desc')}</p>

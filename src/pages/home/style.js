@@ -17,22 +17,32 @@ export const HomwWrapper = styled.div`
         text-decoration: none;
         color: #fff;
     }
+
+    @media screen and (max-width: 900px) {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10px;
+    }
 `
 export const HomwLeft = styled.div`
     float: left;
-    // padding-left: 15px;
-    width: 625px;
+    width: 66%;
     // margin: 0 auto;
+    @media screen and (max-width: 900px) {
+        width: 100%;
+    }
 
 `
 export const HomwRight = styled.div`
     width: 280px;
     float: right;
+    @media screen and (max-width: 900px) {
+        display: none;
 `
 export const DailyWallpaper = styled.div`
     background: url(${props => props.bannerImg}) no-repeat center center;
     background-size: 960px auto;
-    width: 960px;
+    width: 100%;
     height: 300px;
     margin-bottom: 20px;
     border-radius: 6px;
@@ -102,7 +112,7 @@ export const ListItem = styled.div`
     
 `
 export const ListContent = styled.div`
-    width: 500px;
+    width: 100%;
     float: left;
     padding-right: 10px;
     box-sizing: border-box;
