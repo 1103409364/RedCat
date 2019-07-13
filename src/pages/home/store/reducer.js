@@ -4,7 +4,8 @@ import { fromJS } from 'immutable';
 const defaultState = fromJS({
     bannerImg: '',
     articleList: [],
-    articlePage: 1, //分页，告诉后端要哪一页的数据
+    pageIndex: 1, //分页，告诉后端要哪一页的数据
+    totalPage: 1,
     showScroll: false //是否显示回到顶部
 })
 
@@ -14,19 +15,22 @@ const defaultState = fromJS({
 export default (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.CHANGE_HOME_DATA:
-            return state.set('articleList',fromJS(action.data));
+            return state.merge({
+                articleList: fromJS(action.payload.articleList),
+                totalPage: fromJS(action.payload.totalPage)
+            });
         case actionTypes.CHANGE_BANNERIMG:
             return state.set('bannerImg', action.bannerImg);
 
         case actionTypes.ADD_ARTICLE_LIST:
             return state.merge({
-                'articleList': state.get('articleList').concat(fromJS(action.articleList)),
-                'articlePage': action.nextPage
+                articleList: state.get('articleList').concat(fromJS(action.articleList)),
+                pageIndex: action.nextPage
             })
         case actionTypes.CHANGE_AUTHOR_LIST:
             return state.merge({
-                'authorList': fromJS(action.authorList),
-                'authorListPage': action.nextAuthorPage
+                authorList: fromJS(action.authorList),
+                authorListPage: action.nextAuthorPage
             })
         case actionTypes.TOGGLE_SCROLL_TOP:
             return state.set('showScroll', action.show);

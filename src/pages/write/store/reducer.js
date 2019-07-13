@@ -4,10 +4,10 @@ import { fromJS } from 'immutable';
 // content 里面存放的实际上是 dom 字符串
 const defaultState = fromJS({
     // 状态码：0 表示未发送请求， 1 表示请求成功， -1 表示服务器错误
-    'postStatus': 0,
-    'title': '', //标题
-    'html': '', //mark 之后的 html 文本
-    'text': '', //原文，修改的时候从服务器拉取
+    postStatus: 0,
+    title: '', //标题
+    html: '', //mark 之后的 html 文本
+    text: '', //原文，修改的时候从服务器拉取
 });
 
 export default (state = defaultState, action) => {
@@ -20,6 +20,8 @@ export default (state = defaultState, action) => {
             return state.set('html', action.html);
         case actionTypes.CHANGE_TEXT:
             return state.set('text', action.text);
+        // case actionTypes.TOGGLE_SCROLL_TOP:
+        //     return state.set('showScroll', action.show);
         default:
             return state;
     }

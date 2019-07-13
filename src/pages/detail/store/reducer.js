@@ -9,7 +9,8 @@ const defaultState = fromJS({
     text: '',
     date: '',
     updateDate: '',
-    id:'',
+    id: '',
+    showScroll: false //是否显示回到顶部
 });
 
 export default (state = defaultState, action) => {
@@ -26,6 +27,8 @@ export default (state = defaultState, action) => {
                 updateDate: fromJS(action.data.updateDate),
                 id: fromJS(action.data._id),
             });
+        case actionTypes.TOGGLE_SCROLL_TOP:
+            return state.set('showScroll', action.show);
         default:
             return state;
     }

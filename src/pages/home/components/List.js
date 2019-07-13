@@ -8,7 +8,7 @@ import { ListItem, ListContent, LoadMore } from '../style.js';
 
 class List extends React.PureComponent {
     render() {
-        const { articleList, getMoreList, pageIndex } = this.props;
+        const { articleList, getMoreList, pageIndex, totalPage } = this.props;
         return (
             <ul>
                 {// 跳转的时候,传一个 id 进去,detail 页的 props 就能接收到 id, 动态路由获取参数
@@ -28,11 +28,17 @@ class List extends React.PureComponent {
                         </li>
                     ))
                 }
-                <LoadMore
-                    onClick={() => getMoreList(pageIndex)}
-                >
-                    阅读更多
-                </LoadMore>
+                {
+                    (pageIndex < totalPage) ?
+                        <LoadMore
+                            onClick={() => {
+                                // 下一页小于总页数，请求下一项的数据
+                                if (pageIndex + 1 <= totalPage) {
+                                    getMoreList(pageIndex + 1);
+                                }
+                            }}
+                        >阅读更多</LoadMore> : null
+                }
             </ul>
         )
     }
@@ -41,7 +47,8 @@ class List extends React.PureComponent {
 const mapStateToProps = state => {
     return {
         articleList: state.getIn(['home', 'articleList']),
-        pageIndex: state.getIn(['home', 'articlePage'])
+        pageIndex: state.getIn(['home', 'pageIndex']),
+        totalPage: state.getIn(['home', 'totalPage']),
     }
 }
 

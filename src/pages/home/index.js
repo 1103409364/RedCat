@@ -10,18 +10,11 @@ import {
     HomwWrapper,
     HomwLeft,
     HomwRight,
-    BackTop,
     DailyWallpaper
-} from './style.js'
+} from './style.js';
+import { BackTop } from '../../common/BackTop/style.js';
 
 class Home extends React.PureComponent {
-    handleScrollTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }
-
     render() {
         return (
             <HomwWrapper>
@@ -41,9 +34,15 @@ class Home extends React.PureComponent {
                     <Calendar callback={(date) => {console.log(date)}} />
                 </HomwRight>
                 {/* 回到顶部 */}
-                {this.props.showScroll ? <BackTop onClick={this.handleScrollTop}>BACK</BackTop> : null}
+                {this.props.showScroll ? <BackTop onClick={this.handleScrollTop}>BackTop</BackTop> : null}
             </HomwWrapper>
         )
+    }
+    handleScrollTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     }
 
     bindScrollEvents() {
@@ -63,7 +62,6 @@ class Home extends React.PureComponent {
     componentWillUnmount() {
         window.removeEventListener('scroll', this.props.changeScrollTopShow)
     }
-
 }
 
 const mapStateToProps = state => ({

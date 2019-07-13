@@ -206,22 +206,43 @@ $rrcolor: #e7503f;
     .preview {
         float: left;
         box-sizing: border-box;
-        width: 50%;
+        width: 48%;
         // min-width: $minWidth;
         min-height: $minHeight;
         // max-height: $maxHeight;
-        // overflow: auto;
+        // overflow-x: auto;
+        word-wrap: break-word;
         padding: 0 0px 20px 0;
         margin-left: 1%;
         transition: all 0.3s ease;
-        border-top: 1px solid #f0f0f0;
-        ;
-        background-color: #E9EBFE;
+        border-top: 1px solid $rrcolor;
+        background-color: #fff;
         box-shadow: $shadow;
         opacity: 1;
+        position: relative;
 
         &.empty {
-            opacity: 0.3;
+            background-color: #DCE2F1;
+            border-top: 1px solid #f0f0f0;
+            // opacity: 0.3;
+            &::after {
+                opacity: 1;
+                left: 50%;
+                top: 50%;
+                opacity: 0.5;
+            }
+        }
+
+        &::after {
+            width: 200px;
+            height: 160px;
+            content: '预览';
+            font-size: 100px;
+            position: absolute;
+            left: 50%;
+            top: -500px;
+            margin-left: -100px;
+            margin-top: -80px;
         }
     }
 

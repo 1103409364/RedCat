@@ -12,8 +12,16 @@ export const getDetail = (id) => {
         axios.get('/api/detail/article?id=' + id).then(res => {
             const result = res.data.data;
             dispatch(changeDetail(result));
+            // 改变标签栏的标题
+            document.title = result.title;
         }).catch(()=>{
             console.log('error');
         });
     }
 }
+
+// 控制回到顶部按钮的显示和隐藏
+export const toggleTopShow = (show) => ({
+    type: actionTypes.TOGGLE_SCROLL_TOP,
+    show
+})

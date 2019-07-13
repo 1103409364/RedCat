@@ -9,8 +9,8 @@ import highlight from 'highlight.js';
 import './TextEditor.scss';
 import { actionCreators } from './store';
 import { actionCreators as headerActionCreators } from '../../common/header/store';
-// import {} from './style.js'
-// 配置
+import { BackTop } from '../../common/BackTop/style.js';
+
 marked.setOptions({
     highlight(code) {
         return highlight.highlightAuto(code).value
@@ -22,14 +22,16 @@ class Write extends React.PureComponent {
         super(props);
         // 将 html text title 交给 redux 管理
         this.state = {
-            'focus': false,
-            'isEmpty': true, //输入框是否为空
-            'isEmptyTitle': true, //输入框是否为空
-            'showTip': false, //是否显示提示文字
+            focus: false,
+            isEmpty: true, //输入框是否为空
+            isEmptyTitle: true, //输入框是否为空
+            showTip: false, //是否显示提示文字
+            showScroll: false
         }
 
         this.handleTitleInput = this.handleTitleInput.bind(this);
         this.handleInput = this.handleInput.bind(this);
+        this.changeScrollTopShow = this.changeScrollTopShow.bind(this);
         // this.handleKeyDown = this.handleKeyDown.bind(this);
         this.clear = this.clear.bind(this);
         this.save = this.save.bind(this);
@@ -55,7 +57,7 @@ class Write extends React.PureComponent {
         let text = e.target.innerText || e.target.textContent;
         let html = marked(text, { breaks: true })
         let isEmpty = this.checkIsEmpty(text);
-        console.log(html.substr(0, 50))
+        // console.log(html.substr(0, 50))
         this.setState(() => ({
             'isEmpty': isEmpty,
             'showTip': false,
@@ -63,34 +65,17 @@ class Write extends React.PureComponent {
         this.props.changeText(text);
         this.props.changeHtml(html);
     }
-    // 输入 tab 未实现
-    // handleKeyDown(e) {
-    //     var el = this.ipt;
-    //     var keyCode = e.keyCode || e.which;
-    //     if (keyCode === 9) {
-    //         var start = el.selectionStart,
-    //             end = el.selectionEnd;
-    //         console.log(start, end);
-    //         el.innerHTML = el.innerHTML.substring(0, start)
-    //                 + "\t"
-    //                 + el.innerHTML.substring(end);
-    
-    //         el.selectionStart = el.selectionEnd = start + 1;
-    
-    //         e.preventDefault();
-    //     }
-    // }
 
     // 从 HTML 中提取纯文本
     getPlainText(html) {
-        //动态创建一个容器标签元素，如DIV
-        var temp = document.createElement("div");
-        //将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
-        temp.innerHTML = html;
-        //返回这个元素的innerText(ie)或者textContent，即得到经过HTML解码的字符串了。
-        var output = temp.innerText || temp.textContent;
-        temp = null;
-        return output;
+        //动态创建一个容器标签元素，如DIV
+        var temp = document.createElement("div");
+        //将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+        temp.innerHTML = html;
+        //返回这个元素的innerText(ie)或者textContent，即得到经过HTML解码的字符串了。
+        var output = temp.innerText || temp.textContent;
+        temp = null;
+        return output;
     }
 
     save() {
@@ -129,16 +114,44 @@ class Write extends React.PureComponent {
         this.props.changeHtml('');
     }
 
+    // 点击回到顶部
+    handleScrollTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+    changeScrollTopShow() {
+        // toggleTopShow 显示或者隐藏回到顶部按钮的 actionCreator
+        if (document.documentElement.scrollTop > 300) {
+            this.setState(()=>({showScroll: true}));
+        } else {
+            this.setState(()=>({showScroll: false}));
+        }
+    }
+    // 绑定事件，监听 scrollTop
+    bindScrollEvents() {
+        window.addEventListener('scroll',this.changeScrollTopShow);
+
+    }
+
     componentDidMount() {
         // if (this.ipt) { this.ipt.focus()}
         // 更改地址栏路径
         this.props.changePath(this.props.history.location.pathname);
         document.title = '写文章-rr';
         // this.ipt.selectionEnd = this.ipt.innerText.length;
+        this.bindScrollEvents();
+    }
+
+    // 在 window 上绑定了事件，可能会影响其他组件。在组件卸载的时候移除这个事件监听
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.props.changeScrollTopShow)
     }
 
     render() {
-        const { isAuthenticated, postStatus,title, html, text } = this.props;
+        const { isAuthenticated, postStatus, title, html } = this.props;
         const postTipClass = classNames({
             postTip: true,
             success: postStatus === 1,
@@ -148,6 +161,7 @@ class Write extends React.PureComponent {
         if (isAuthenticated) {
             return (
                 <div className={this.state.focus === true ? 'TextEditor focus' : 'TextEditor'}>
+                    {/* 标题输入框 */}
                     <div className="titleEditor">
                         <input className="title"
                             onChange={this.handleTitleInput}
@@ -206,12 +220,14 @@ class Write extends React.PureComponent {
                     <div className={this.state.isEmpty ? 'empty preview marked' : 'preview marked'}
                         dangerouslySetInnerHTML={{ __html: html }}
                     />
-
+                    {/* 提示框 */}
                     <div className={postTipClass}>
                         {postStatus === 1 ? '文章发表成功' : postStatus === -1 ? '服务器错误请稍后再试' : ''}
                     </div>
-                </div>)
-        }
+                    {/* 回到顶部 */}
+                    
+                    {this.state.showScroll ? <BackTop onClick={this.handleScrollTop}>BackTop</BackTop> : null}
+                </div>)}
 
         return <Redirect to="/login" />
     }

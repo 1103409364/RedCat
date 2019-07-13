@@ -56,3 +56,9 @@ export const postArticle = (article, inputDiv) => {
             });
     }
 }
+
+// 控制回到顶部按钮的显示和隐藏, 同时使用了 localstate 无法绑定全局 state
+// export const toggleTopShow = (show) => ({
+//     type: actionTypes.TOGGLE_SCROLL_TOP,
+//     show
+// })

@@ -29,6 +29,7 @@ export const Author = styled.div`
     .info {
         font-size: 14px;
         line-height: 20px;
+        color: #999;
         a{
             text-decoration: none;
             color: #999;
