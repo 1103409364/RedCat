@@ -34,6 +34,13 @@ export const Author = styled.div`
             text-decoration: none;
             color: #999;
         }
+        .btnWrap {
+            display: inline;
+            .edit, .delete {
+                cursor: pointer;
+                padding-left: 10px;
+            }
+        }
     }
 `
 export const Content = styled.div`

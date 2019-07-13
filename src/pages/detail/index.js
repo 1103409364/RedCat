@@ -15,7 +15,7 @@ import { BackTop } from '../../common/BackTop/style.js';
 
 class Detail extends React.PureComponent {
     render() {
-        const { content, title, author, updateDate,showScroll } = this.props;
+        const { content, title, author, updateDate, showScroll, isAuthenticated, userName } = this.props;
         // 拿到上一个页面传进来的 id
         // console.log(this.props.match.params.id);
         return (
@@ -30,7 +30,14 @@ class Detail extends React.PureComponent {
                     <div className="info">
                         {/* <a href={`/api/me/${author}`}> 跳转到作者主页 */}
                         {`作者：${author} ${time(updateDate).format('YYYY-MM-DD HH:mm:ss')}`}
-                        {/* </a> */}
+                        {
+                            isAuthenticated && author === userName ?
+                                <div className="btnWrap">
+                                    <span className="edit">编辑</span>
+                                    <span className="delete">删除</span>
+                                </div> : null
+                        }
+
                     </div>
                 </Author>
                 <Content className="marked" dangerouslySetInnerHTML={{ __html: content }} />
@@ -73,6 +80,8 @@ const mapStateToProps = state => ({
     updateDate: state.getIn(['detail', 'updateDate']),
     id: state.getIn(['detail', 'id']),
     showScroll: state.getIn(['detail', 'showScroll']),
+    isAuthenticated: state.getIn(['login', 'isAuthenticated']),
+    userName: state.getIn(['login', 'user', 'name']),
 });
 
 const mapDispatchToProps = dispatch => ({

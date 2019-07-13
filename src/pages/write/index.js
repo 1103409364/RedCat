@@ -79,6 +79,11 @@ class Write extends React.PureComponent {
     }
 
     save() {
+        // 只有激活用户才能发表文章
+        if(!this.props.islive) {
+            alert('请先激活 Email');
+            return;
+        }
         // 检查输入是否为空
         if (this.state.isEmpty || this.state.isEmptyTitle) {
             this.setState({
@@ -236,6 +241,7 @@ class Write extends React.PureComponent {
 const mapStateToProps = state => ({
     isAuthenticated: state.getIn(['login', 'isAuthenticated']),
     author: state.getIn(['login', 'user', 'name']),
+    islive: state.getIn(['login', 'user', 'islive']),
     postStatus: state.getIn(['write', 'postStatus']),
     title: state.getIn(['write', 'title']),
     html: state.getIn(['write', 'html']),
