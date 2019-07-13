@@ -4,6 +4,9 @@ export const HomwWrapper = styled.div`
     max-width: 960px;
     margin: 0 auto;
     padding-top: 30px;
+    li {
+        list-style: none;
+    }
     &::after {
         content: '';
         clear: both;
@@ -11,12 +14,9 @@ export const HomwWrapper = styled.div`
         width: 0;
         height: 0;
         visibility: hidden;
-    },
-    
-
-
+    }
     @media screen and (max-width: 900px) {
-        box-sizing: border-box;
+        // box-sizing: border-box;
         width: 100%;
         padding: 10px;
     }
@@ -28,7 +28,6 @@ export const HomwLeft = styled.div`
     @media screen and (max-width: 900px) {
         width: 100%;
     }
-
 `
 export const HomwRight = styled.div`
     width: 280px;
@@ -123,96 +122,27 @@ export const ListContent = styled.div`
     padding-right: 10px;
     box-sizing: border-box;
     .title {
-        line-height: 27px;
+        line-height: 1.5;
         font-size: 18px;
-        font-weight: bold;
+        font-weight: 700;
         color: #333;
+        margin-bottom: 4px;
     }
     .desc {
         line-height: 24px;
         font-size: 13px;
         color: #999;
+        margin: 0 0 8px;
+    }
+    .info {
+        color: #b4b4b4;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 20px;
     }
     
 `
-export const RecommendWrapper = styled.div`
-    margin-bottom: 10px;
-`
-export const RecommendItem = styled.div`
-    margin-bottom: 5px;
-    img {
-        height: 50px;
-    } 
-`
-export const DownLoadWrapper = styled.a`
-    display: block;
-    padding: 10px 22px;
-    margin-bottom: 30px;
-    border: 1px solid #dcdcdc;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 15px;
-    text-decoration: none;
-    color: #000;
-    position: relative;
 
-    .qrImg {
-        width: 60px;
-        height: 60px;
-        float: left;
-    }
-    &::before {
-        content: "";
-        background: url(${props => props.qrImgUrl});
-        background-repeat: no-repeat;
-        background-size: contain;
-        border: 1px solid #dcdcdc;
-        border-radius: 5px;
-        box-shadow: 0 2px 8px #999;
-        position: absolute;
-        left: 50%;
-        top: -260%;
-        margin-left: -100px;
-        width: 200px;
-        height: 0;
-        opacity: 0;
-        transition: opacity .2s ease-in;
-    }
-    &:hover {
-        &::before {
-            height: 200px;
-            opacity: 1;
-        }
-    }
-    &::after {
-        content: '';
-        clear: both;
-        display: table;
-        width: 0;
-        height: 0;
-        visibility: hidden;
-    }
-`
-export const DownLoadInfo = styled.div`
-    width: 160px;
-    float: left;
-    padding-left: 9px;
-    padding-top: 9px;
-    h3 {
-        line-height: 21px;
-        .icon {
-            padding-left: 10px;
-        }
-    }
-    p {
-        font-size: 13px;
-        color: #999;
-        line-height: 21px;
-    }
-`
-export const AuthorsWrap = styled.div`
-
-`
 export const AuthorsTitle = styled.div`
     font-size: 14px;
     color: #787878;

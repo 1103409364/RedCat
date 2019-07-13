@@ -9722,6 +9722,11 @@ thunky@^1.0.2:
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.0.3.tgz#f5df732453407b09191dae73e2a8cc73f381a826"
   integrity sha512-YwT8pjmNcAXBZqrubu22P4FYsh2D4dxRmnWBOL8Jk8bUcRUtc5326kx32tuTmFDAZtLOGEVNl8POAR8j896Iow==
 
+time-formater@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npm.taobao.org/time-formater/download/time-formater-1.1.2.tgz#08995a4407c5dbca93ea2e9676922186ed298f17"
+  integrity sha1-CJlaRAfF28qT6i6WdpIhhu0pjxc=
+
 timers-browserify@^2.0.4:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.10.tgz#1d28e3d2aadf1d5a5996c4e9f95601cd053480ae"

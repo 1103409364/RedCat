@@ -10,6 +10,11 @@ import Register from './pages/register/loadable.js';
 //  引入全局样式
 import { GlobalStyled } from './style.js';
 import { Iconfont } from './statics/iconfont/iconfont.js';
+// markdown 样式
+import './statics/markdown.scss';
+// 代码高亮样式，配合 highlight.js
+import 'highlight.js/styles/vs.css';
+
 import store from './store';
 
 // 首次载入或者刷新都会从本地 localstorage 读取数据

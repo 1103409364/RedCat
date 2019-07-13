@@ -3,9 +3,8 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import marked from 'marked';
-// 代码高亮
+// 代码高亮，原理是给代码加 span 和 类名，再引入对应的 css
 import highlight from 'highlight.js';
-import 'highlight.js/styles/vs.css';
 
 import './TextEditor.scss';
 import { actionCreators } from './store';
@@ -31,6 +30,7 @@ class Write extends React.PureComponent {
 
         this.handleTitleInput = this.handleTitleInput.bind(this);
         this.handleInput = this.handleInput.bind(this);
+        // this.handleKeyDown = this.handleKeyDown.bind(this);
         this.clear = this.clear.bind(this);
         this.save = this.save.bind(this);
     }
@@ -40,7 +40,7 @@ class Write extends React.PureComponent {
     }
     // 处理标题输入
     handleTitleInput(e) {
-        let text = e.target.value;
+        let text = e.target.value.substr(0, 50);
         let isEmptyTitle = this.checkIsEmpty(text);
 
         this.setState(() => ({
@@ -52,16 +52,45 @@ class Write extends React.PureComponent {
     }
     // 输入事件处理
     handleInput(e) {
-        let text = e.target.innerText
+        let text = e.target.innerText || e.target.textContent;
         let html = marked(text, { breaks: true })
         let isEmpty = this.checkIsEmpty(text);
-
+        console.log(html.substr(0, 50))
         this.setState(() => ({
             'isEmpty': isEmpty,
             'showTip': false,
         }));
         this.props.changeText(text);
         this.props.changeHtml(html);
+    }
+    // 输入 tab 未实现
+    // handleKeyDown(e) {
+    //     var el = this.ipt;
+    //     var keyCode = e.keyCode || e.which;
+    //     if (keyCode === 9) {
+    //         var start = el.selectionStart,
+    //             end = el.selectionEnd;
+    //         console.log(start, end);
+    //         el.innerHTML = el.innerHTML.substring(0, start)
+    //                 + "\t"
+    //                 + el.innerHTML.substring(end);
+    
+    //         el.selectionStart = el.selectionEnd = start + 1;
+    
+    //         e.preventDefault();
+    //     }
+    // }
+
+    // 从 HTML 中提取纯文本
+    getPlainText(html) {
+        //动态创建一个容器标签元素，如DIV
+        var temp = document.createElement("div");
+        //将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+        temp.innerHTML = html;
+        //返回这个元素的innerText(ie)或者textContent，即得到经过HTML解码的字符串了。
+        var output = temp.innerText || temp.textContent;
+        temp = null;
+        return output;
     }
 
     save() {
@@ -70,15 +99,18 @@ class Write extends React.PureComponent {
             this.setState({
                 'showTip': true,
             })
-
             return;
         }
+        const htmlText = this.props.html
+        // 截取一部分正文作为简介
+        const descText = this.getPlainText(htmlText).substr(0, 100) + '……';
         // 文章的标题，正文原文，mark之后的正文，作者id，文章id
         const article = {
             title: this.props.title,
             text: this.props.text,
-            html: this.props.html,
-            author: this.props.author
+            html: htmlText,
+            desc: descText,
+            author: this.props.author,
             // id: 文章 id 自己生成
         }
         this.props.postArticle(article, this.ipt);
@@ -98,9 +130,7 @@ class Write extends React.PureComponent {
     }
 
     componentDidMount() {
-        // if (this.ipt) {
-        //     this.ipt.focus();
-        // }
+        // if (this.ipt) { this.ipt.focus()}
         // 更改地址栏路径
         this.props.changePath(this.props.history.location.pathname);
         document.title = '写文章-rr';
@@ -123,8 +153,8 @@ class Write extends React.PureComponent {
                             onChange={this.handleTitleInput}
                             type="text"
                             value={title}
-                            placeholder="请输入标题"
-                            autoFocus="true"
+                            placeholder="请输入标题（最多50个字）"
+                            autoFocus
                         />
                     </div>
                     <div className={this.state.focus === true ? 'textareaWrap focus' : 'textareaWrap'}>
@@ -133,6 +163,7 @@ class Write extends React.PureComponent {
                             contentEditable="true"
                             ref={ipt => this.ipt = ipt}
                             onInput={this.handleInput}
+                            // onKeyDown={this.handleKeyDown}
                             onFocus={() => {
                                 this.setState({
                                     'focus': true
@@ -145,7 +176,7 @@ class Write extends React.PureComponent {
                             }}
                         />
                         {/* 模拟 placeholder */}
-                        <div className={this.state.isEmpty ? 'placeholder' : 'hide placeholder'}>请输入正文(支持 Markdown)</div>
+                        <div className={this.state.isEmpty ? 'placeholder' : 'hide placeholder'}>请输入正文（支持 Markdown）</div>
                         <div className="App-btn">
                             <i
                                 onClick={() => this.ipt.focus()}
@@ -171,8 +202,8 @@ class Write extends React.PureComponent {
                         >标题或正文为空，请输入
                         </span>
                     </div>
-
-                    <div className={this.state.isEmpty ? 'empty preview' : 'preview'}
+                    {/* 预览 */}
+                    <div className={this.state.isEmpty ? 'empty preview marked' : 'preview marked'}
                         dangerouslySetInnerHTML={{ __html: html }}
                     />
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const DetailWrapper = styled.div`
-    width: 620px;
+    max-width: 620px;
     margin: 0 auto;
     padding-top: 30px;
     &::after {
@@ -12,6 +12,11 @@ export const DetailWrapper = styled.div`
         height: 0;
         visibility: hidden;
     }
+    @media screen and (max-width: 900px) {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10px;
+    }
 `
 export const Header = styled.div`
     margin-top: 50px 0 20px 0;
@@ -20,14 +25,17 @@ export const Header = styled.div`
     color: #333;
     font-weight: bold;
 `
+export const Author = styled.div`
+    .info {
+        font-size: 14px;
+        line-height: 20px;
+        a{
+            text-decoration: none;
+            color: #999;
+        }
+    }
+`
 export const Content = styled.div`
     color: #2f2f2f;
-    img {
-        width: 100%;
-    }
-    p {
-        margin: 25px 0;
-        font-size: 16px;
-        line-height: 30px;
-    }
+    margin-top: 30px;
 `
