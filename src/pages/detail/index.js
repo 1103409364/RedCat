@@ -15,7 +15,7 @@ import { BackTop } from '../../common/BackTop/style.js';
 
 class Detail extends React.PureComponent {
     render() {
-        const { content, title, author, updateDate, showScroll, isAuthenticated, userName } = this.props;
+        const { content, title, author, updateDate, showScroll, isAuthenticated, userName, handleEdit, handleDelete, id } = this.props;
         // 拿到上一个页面传进来的 id
         // console.log(this.props.match.params.id);
         return (
@@ -29,12 +29,16 @@ class Detail extends React.PureComponent {
                     </a> */}
                     <div className="info">
                         {/* <a href={`/api/me/${author}`}> 跳转到作者主页 */}
-                        {`作者：${author} ${time(updateDate).format('YYYY-MM-DD HH:mm:ss')}`}
+                        {updateDate ?  `作者：${author} ${time(updateDate).format('YYYY-MM-DD HH:mm:ss')}` : '本文已删除'}
                         {
                             isAuthenticated && author === userName ?
                                 <div className="btnWrap">
-                                    <span className="edit">编辑</span>
-                                    <span className="delete">删除</span>
+                                    <span className="edit"
+                                        onClick={handleEdit}
+                                    >编辑</span>
+                                    <span className="delete"
+                                        onClick={() => handleDelete(id, this.props.history)}
+                                    >删除</span>
                                 </div> : null
                         }
 
@@ -66,7 +70,7 @@ class Detail extends React.PureComponent {
 
     // 在 window 上绑定了事件，可能会影响其他组件。在组件卸载的时候移除这个事件监听
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.props.changeScrollTopShow)
+        window.removeEventListener('scroll', this.props.changeScrollTopShow);
     }
 }
 
@@ -78,7 +82,7 @@ const mapStateToProps = state => ({
     text: state.getIn(['detail', 'text']),
     date: state.getIn(['detail', 'date']),
     updateDate: state.getIn(['detail', 'updateDate']),
-    id: state.getIn(['detail', 'id']),
+    id: state.getIn(['detail', 'id']), //文章 id
     showScroll: state.getIn(['detail', 'showScroll']),
     isAuthenticated: state.getIn(['login', 'isAuthenticated']),
     userName: state.getIn(['login', 'user', 'name']),
@@ -98,6 +102,13 @@ const mapDispatchToProps = dispatch => ({
         } else {
             dispatch(actionCreators.toggleTopShow(false))
         }
+    },
+    handleDelete(id, history) {
+        // console.log(id);
+        window.confirm('确定要删除吗?') && dispatch(actionCreators.deleteArticle(id, history))
+    },
+    handleEdit(id) {
+        console.log('Edit');
     }
 });
 
