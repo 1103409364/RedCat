@@ -4,11 +4,11 @@ import { fromJS } from 'immutable';
 import isEmpty from '../util/is-empty';
 const defaultState = fromJS({
     isAuthenticated: false, //是否通过验证
-    user: fromJS({}),
-    errors: fromJS({
+    user: {},
+    errors: {
         email: '',
         password: '',
-    })
+    }
 });
 
 export default (state = defaultState, action) => {

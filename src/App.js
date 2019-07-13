@@ -14,13 +14,12 @@ import { Iconfont } from './statics/iconfont/iconfont.js';
 import './statics/markdown.scss';
 // 代码高亮样式，配合 highlight.js
 import 'highlight.js/styles/vs.css';
-
 import store from './store';
-
-// 首次载入或者刷新都会从本地 localstorage 读取数据
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './pages/login/util/setAuthToken';
 import { actionCreators } from './pages/login/store';
+
+// 刷新都会从本地 localstorage 读取数据
 // 看看本地有没有 token
 if (localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken);
