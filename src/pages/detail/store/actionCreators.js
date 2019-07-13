@@ -9,13 +9,14 @@ const changeDetail = (data) => ({
 // 获得文章全部内容
 export const getDetail = (id) => {
     return (dispatch) => {
+        axios.get('/api/users/me');
         // 后端根据不同的 id 返回内容
         axios.get('/api/detail/article?id=' + id).then(res => {
             const result = res.data.data;
             dispatch(changeDetail(result));
             // 改变标签栏的标题
             document.title = result.title;
-        }).catch(()=>{
+        }).catch(() => {
             console.log('error');
         });
     }
@@ -24,17 +25,19 @@ export const getDetail = (id) => {
 export const deleteArticle = (articleId, history) => {
     return (dispatch) => {
         // 删除
-        console.log(articleId)
-        axios.delete('/api/detail/delete', {data:{id:articleId}}).then(res => {
-            const result = res.data.data;
-            // 显示删除成功消息
-            alert('删除成功');
-            dispatch(changeDetail({}));
-            // 删除成功跳转到首页
-            history.push('/');
-        }).catch((err)=>{
+        axios.delete('/api/detail/delete', { data: { id: articleId } }).then(res => {
+            if (res.data.success) {
+                const result = res.data.data;
+                // 显示删除成功消息
+                alert('删除成功');
+                dispatch(changeDetail({}));
+                history.push('/');
+                return;
+            }
             alert('删除失败');
+        }).catch((err) => {
             console.log('error', err);
+            alert('删除失败');
         });
     }
 }

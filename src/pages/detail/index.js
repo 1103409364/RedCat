@@ -29,7 +29,7 @@ class Detail extends React.PureComponent {
                     </a> */}
                     <div className="info">
                         {/* <a href={`/api/me/${author}`}> 跳转到作者主页 */}
-                        {updateDate ?  `作者：${author} ${time(updateDate).format('YYYY-MM-DD HH:mm:ss')}` : '本文已删除'}
+                        {updateDate ?  `作者：${author} ${time(updateDate).format('YYYY-MM-DD HH:mm:ss')}` : ''}
                         {
                             isAuthenticated && author === userName ?
                                 <div className="btnWrap">

@@ -40,6 +40,12 @@ export const Author = styled.div`
                 cursor: pointer;
                 padding-left: 10px;
             }
+            .delete:hover {
+                color: red;
+            }
+            .edit:hover {
+                color: blue;
+            }
         }
     }
 `
