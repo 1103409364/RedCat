@@ -16,9 +16,10 @@ import { BackTop } from '../../common/BackTop/style.js';
 
 class Home extends React.PureComponent {
     render() {
+        const  { bannerImg, showScroll} = this.props;
         return (
             <HomwWrapper>
-                <DailyWallpaper bannerImg={this.props.bannerImg} >
+                <DailyWallpaper bannerImg={bannerImg} >
                     <a className="bannerTitle" href={this.props.bannerImg} target="_blank" rel="noopener noreferrer">
                         <span>
                             Bing 每日高清壁纸- 精彩，从这里开始
@@ -34,7 +35,7 @@ class Home extends React.PureComponent {
                     <Calendar callback={(date) => {console.log(date)}} />
                 </HomwRight>
                 {/* 回到顶部 */}
-                {this.props.showScroll ? <BackTop onClick={this.handleScrollTop}>BackTop</BackTop> : null}
+                {showScroll ? <BackTop onClick={this.handleScrollTop}>BackTop</BackTop> : null}
             </HomwWrapper>
         )
     }
@@ -66,7 +67,7 @@ class Home extends React.PureComponent {
 
 const mapStateToProps = state => ({
     bannerImg: state.getIn(['home', 'bannerImg']),
-    showScroll: state.getIn(['home', 'showScroll'])
+    showScroll: state.getIn(['home', 'showScroll']),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,46 +1,89 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
+// 改变文章列表的数据
 const changeHomeData = result => ({
     type: actionTypes.CHANGE_HOME_DATA,
     payload: result
 });
 
-// 获得页面初始数据
+// 恢复为第一页
+export const restorePageIndex = () => ({
+    type: actionTypes.RESTORE_PAGE_INDEX,
+    defaultIndex: 1
+})
+
+// 加载更多文章, 后端分页
+const addArticleList = (result) => ({
+    type: actionTypes.ADD_ARTICLE_LIST,
+    payload: result
+})
+
+// 获得列表初始数据, 默认显示第一页
 export const getHomeData = () => {
     return dispatch => {
         axios.get('/api/home/articleList?page=1').then(res => {
-            const result = {
-                articleList: res.data.data,
-                totalPage: res.data.totalPage
-            }
-
-            dispatch(changeHomeData(result));
-        }).catch(() => {
-            console.log('error');
-        })
-    }
-}
-
-
-
-// 增加文章列表
-const addArticleList = (articleList, nextPage) => ({
-    type: actionTypes.ADD_ARTICLE_LIST,
-    articleList,
-    nextPage
-})
-// 获得更多列表,后端根据请求参数中的页码来返回不同的内容
-export const getMoreList = (nextPage) => {
-    return (dispatch) => {
-        axios.get(`./api/home/articleList?page=${nextPage}`).then((res) => {
             const result = res.data.data;
-            dispatch(addArticleList(result, nextPage));
+
+            if (result.success) {
+                const listData = {
+                    articleList: result.articles,
+                    totalPage: result.totalPage
+                }
+                dispatch(changeHomeData(listData));
+            } else {
+                console.log(result);
+            }
         }).catch(() => {
             console.log('error');
         })
     }
 }
+
+// 搜索文章, 默认显示第一页, 中文会被 uri 编码
+export const getSomeList = (searchValue) => {
+    return (dispatch) => {
+        axios.get(`./api/home/articleList?page=1&search=${searchValue}`).then((res) => {
+            const result = res.data.data;
+            if (result.success) {
+                const listData = {
+                    articleList: result.articles,
+                    totalPage: result.totalPage
+                }
+                dispatch(changeHomeData(listData));
+                dispatch(restorePageIndex());
+
+            } else {
+                console.log(result);
+            }
+        }).catch(() => {
+            console.log('error');
+        })
+    }
+}
+
+// 获取更多文章,后端根据请求参数中的页码和查询字符串返回不同的内容
+export const getMoreList = (nextPage, searchValue) => {
+    return (dispatch) => {
+        axios.get(`./api/home/articleList?page=${nextPage}&search=${searchValue}`).then((res) => {
+            const result = res.data.data;
+            if (result.success) {
+                // 更新页码和文章列表
+                const moreList = {
+                    articleList: result.articles,
+                    nextPage
+                }
+                dispatch(addArticleList(moreList));
+            } else {
+                console.log(result);
+            }
+            console.log(result)
+        }).catch(() => {
+            console.log('error');
+        })
+    }
+}
+
 // 改变 banner 图
 const changeBannerImg = bannerImg => ({
     type: actionTypes.CHANGE_BANNERIMG,
@@ -59,27 +102,8 @@ export const getBannerImg = () => {
     }
 }
 
-
 // 控制回到顶部按钮的显示和隐藏
 export const toggleTopShow = (show) => ({
     type: actionTypes.TOGGLE_SCROLL_TOP,
     show
 })
-
-// // 供局部使用的 actionCreator,推荐作者换页
-// const changeAuthorList = (authorList, nextAuthorPage) => ({
-//     type: actionTypes.CHANGE_AUTHOR_LIST,
-//     authorList,
-//     nextAuthorPage
-// })
-// //  获得推荐作者,推荐作者换一批
-// export const changeAouthorList = (authorListPage) => {
-//     return dispatch => {
-//         axios.get(`/api/recommendedAuthors.json?=${authorListPage}`).then(res => {
-//             const authorList = res.data.data;
-//             dispatch(changeAuthorList(authorList, authorListPage + 1));
-//         }).catch(() => {
-//             console.log('error');
-//         })
-//     }
-// }

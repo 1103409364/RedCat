@@ -10,6 +10,7 @@ const defaultState = fromJS({
     page: 1,
     totalPage: 1,
     pathname: '/', //当前所处的页面,根据这个属性改变导航样式: 选中或者未选中
+    searchValue: ''
 });
 
 export default (state=defaultState,action ) => {
@@ -19,6 +20,8 @@ export default (state=defaultState,action ) => {
             return state.set('focused', true);
         case actionTypes.SEARCH_BLUR:
             return state.set('focused', false);
+        case actionTypes.CHANGE_SEARCH_INPUT:
+            return state.set('searchValue', action.searchValue);
         case actionTypes.CHANGE_LIST:
             // 这里需要注意，action 中的 data 也要转为 immutable 对象，保证数据不可变
             // return state.set('list', action.data).set('totalPage', action.totalPage);

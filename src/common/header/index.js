@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-// import { CSSTransition } from 'react-transition-group';
-// import * as actionCreators from './store/actionCreators.js'
 import { actionCreators } from './store';
 import { actionCreators as loginActionCreators } from '../../pages/login/store';
+import { actionCreators as homeActionCreators } from '../../pages/home/store';
 import classNames from 'classnames';
 
 // import axios from 'axios';
@@ -15,58 +14,15 @@ import {
     Nav,
     ItemWrapper,
     NavItem,
-    // NavSearch,
+    NavSearch,
     Addition,
     Button,
-    // SearchWrapper,
-    SearchInfo,
-    SearchInfoTitle,
-    SearchInfoSwitch,
-    SearchInfoItem,
-    SearchInfoList,
+    SearchWrapper,
 } from './style.js';
 
 class Header extends React.PureComponent {
-    getListArea() {
-        // 解构赋值，从 props 中取出要用的东西
-        const { focused, mouseIn, list, page, totalPage, handleMouseEnter, handleMouseLeave, handleChangePage } = this.props;
-        const newList = list.toJS();
-        const pageList = [];
-
-        for (let i = (page - 1) * 10; i < page * 10; i++) {
-            // 最后一页可能不是满的，第一次是空页
-            if (i < newList.length) {
-                pageList.push(
-                    <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
-                )
-            }
-        }
-        // 满足其中一个条件时，显示 SearchInfo，防止点击 SearchInfo 失焦导致点不中
-        if (focused || mouseIn) {
-            return (
-                <SearchInfo
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                >
-                    <SearchInfoTitle>
-                        热门搜索
-                    <SearchInfoSwitch
-                            onClick={() => { handleChangePage(page, totalPage, this.spinIcon) }}
-                        ><i
-                            className="iconfont spin"
-                            ref={icon => this.spinIcon = icon}
-                        >&#xe606;</i>换一批</SearchInfoSwitch>
-                    </SearchInfoTitle>
-                    <SearchInfoList>
-                        {pageList}
-                    </SearchInfoList>
-                </SearchInfo>)
-        }
-    }
-
     render() {
-        // focused, handleInputFocus, handleInputBlur, list,
-        const {  logoutUser, history, user, isAuthenticated, sendConfirmMail, pathname } = this.props;
+        const { focused, mouseIn, handleMouseEnter, handleMouseLeave, handleInputFocus, handleInputBlur,handleInputChange,handleSearach, logoutUser, history, user, isAuthenticated, sendConfirmMail, pathname, searchValue } = this.props;
         const activeItem = {
             '/write': '写文章',
         }
@@ -139,10 +95,28 @@ class Header extends React.PureComponent {
                         }
                         {
                             this.props.isAuthenticated ?
-                                <NavItem className="right">
+                                <NavItem className="right nickname">
                                     {`用户名: ${user.get('name')}`}
                                 </NavItem> : null
                         }
+                        {
+                            pathname === '/' ?
+                                <SearchWrapper>
+                                    <NavSearch
+                                        onFocus={() => handleInputFocus()}
+                                        onBlur={handleInputBlur}
+                                        onChange={handleInputChange}
+                                        className={focused ? 'focused' : ''}
+                                    />
+                                    {/* 当鼠标进入放大镜或者输入框取得焦点时, 改变放大镜样式 */}
+                                    <i className={focused || mouseIn ? 'focused iconfont zoom' : 'iconfont zoom'}
+                                        onMouseEnter={handleMouseEnter}
+                                        onMouseLeave={handleMouseLeave}
+                                        onClick={() => {handleSearach(searchValue)}}
+                                    >&#xe600;</i>
+                                </SearchWrapper> : null
+                        }
+
                     </ItemWrapper>
                 </Nav>
             </HeaderWrapper>
@@ -159,27 +133,46 @@ const mapStateToProps = state => {
         mouseIn: state.get('header').get('mouseIn'),
         // focused: state.header.focused
         // 取数据的另一种写法
-        list: state.getIn(['header', 'list']),
         page: state.getIn(['header', 'page']),
         totalPage: state.getIn(['header', 'totalPage']),
         pathname: state.getIn(['header', 'pathname']),
         isAuthenticated: state.getIn(['login', 'isAuthenticated']),
         user: state.getIn(['login', 'user']),
+        searchValue: state.get('header').get('searchValue'),
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        // 获得焦点,list 是 immutable 对象
-        handleInputFocus(list) {
-            // 避免多次无意义的请求发送,提升组件性能
-            list.size === 0 && dispatch(actionCreators.getList());
+        // 获得焦点
+        handleInputFocus() {
             dispatch(actionCreators.searchFocus());
+        },
+        // 失去焦点
+        handleInputBlur() {
+            dispatch(actionCreators.searchBlur());
+        },
+        // 鼠标进入搜索放大镜
+        handleMouseEnter() {
+            dispatch(actionCreators.mouseEnter());
+        },
+        // 鼠标离开搜索放大镜
+        handleMouseLeave() {
+            dispatch(actionCreators.mouseLeave());
         },
         // 退出登陆,从 login 中引入 loginActionCreators
         logoutUser(history) {
             dispatch(loginActionCreators.logoutUser(history));
         },
+        // 管理搜索框的值
+        handleInputChange(e) {
+            dispatch(actionCreators.changeSearchInput(e.target.value));
+        },
+        // 执行搜索操作
+        handleSearach(searchValue) {
+            dispatch(homeActionCreators.getSomeList(searchValue));
+        },
+        // 发送激活邮件
         sendConfirmMail() {
             dispatch(loginActionCreators.sendConfirmMail());
         }

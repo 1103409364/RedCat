@@ -16,6 +16,11 @@ export const searchBlur = () => ({
     type: actionTypes.SEARCH_BLUR
 });
 
+export const changeSearchInput = (searchValue) => ({
+    type: actionTypes.CHANGE_SEARCH_INPUT,
+    searchValue
+});
+
 export const mouseEnter = () => ({
     type: actionTypes.MOUSE_ENTER
 });

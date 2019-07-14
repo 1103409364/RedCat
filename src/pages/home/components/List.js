@@ -8,7 +8,7 @@ import { ListItem, ListContent, LoadMore } from '../style.js';
 
 class List extends React.PureComponent {
     render() {
-        const { articleList, getMoreList, pageIndex, totalPage } = this.props;
+        const { articleList, getMoreList, pageIndex, totalPage, searchValue } = this.props;
         return (
             <ul>
                 {// 跳转的时候,传一个 id 进去,detail 页的 props 就能接收到 id, 动态路由获取参数
@@ -34,7 +34,7 @@ class List extends React.PureComponent {
                             onClick={() => {
                                 // 下一页小于总页数，请求下一项的数据
                                 if (pageIndex + 1 <= totalPage) {
-                                    getMoreList(pageIndex + 1);
+                                    getMoreList(pageIndex + 1, searchValue);
                                 }
                             }}
                         >阅读更多</LoadMore> : null
@@ -49,12 +49,13 @@ const mapStateToProps = state => {
         articleList: state.getIn(['home', 'articleList']),
         pageIndex: state.getIn(['home', 'pageIndex']),
         totalPage: state.getIn(['home', 'totalPage']),
+        searchValue: state.getIn(['header', 'searchValue']),
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    getMoreList(pageIndex) {
-        dispatch(actionCreators.getMoreList(pageIndex));
+    getMoreList(pageIndex, searchValue) {
+        dispatch(actionCreators.getMoreList(pageIndex, searchValue));
     }
 })
 

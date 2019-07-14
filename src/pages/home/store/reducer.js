@@ -10,8 +10,6 @@ const defaultState = fromJS({
 })
 
 // 当 switch 里的语句变复杂的时候，可以进行提取
-// const changeHomeData = (state, action) => {}
-
 export default (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.CHANGE_HOME_DATA:
@@ -21,12 +19,14 @@ export default (state = defaultState, action) => {
             });
         case actionTypes.CHANGE_BANNERIMG:
             return state.set('bannerImg', action.bannerImg);
-
+        // 加载下一页
         case actionTypes.ADD_ARTICLE_LIST:
             return state.merge({
-                articleList: state.get('articleList').concat(fromJS(action.articleList)),
-                pageIndex: action.nextPage
-            })
+                articleList: state.get('articleList').concat(fromJS(action.payload.articleList)),
+                pageIndex: action.payload.nextPage
+            });
+        case actionTypes.RESTORE_PAGE_INDEX:
+            return state.set('pageIndex', action.defaultIndex);
         case actionTypes.CHANGE_AUTHOR_LIST:
             return state.merge({
                 authorList: fromJS(action.authorList),

@@ -98,7 +98,7 @@ class Write extends React.PureComponent {
         }
         const htmlText = this.props.html
         // 截取一部分正文作为简介
-        const descText = this.getPlainText(htmlText).substr(0, 100) + '……';
+        const descText = this.getPlainText(htmlText).substr(0, 90) + '……';
         // 文章的标题，正文原文，mark之后的正文，作者id，文章id
         const article = {
             title: this.props.title,
@@ -146,7 +146,7 @@ class Write extends React.PureComponent {
                 isEmptyTitle: false, //输入框是否为空
             }));
         }
-        
+
         document.title = '写文章-rr';
     }
 

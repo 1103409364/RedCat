@@ -2,12 +2,17 @@ import styled from 'styled-components';
 import logoPic from '../../statics/logo.png';
 // 主色调 #e7503f
 const rrcolor = '#e7503f';
+const minscreenwidth = '750px';
 
 export const HeaderWrapper = styled.div`
-    height: 56px;
+    min-height: 56px;
     border-bottom: 1px solid #f0f0f0;
     @media screen and (max-width: 900px) {
         width: 100%;
+    }
+    overflow: hidden;
+    @media screen and (max-width: ${minscreenwidth}) {
+        border: none;
     }
 `
 export const Logo = styled.div`
@@ -19,6 +24,9 @@ export const Logo = styled.div`
     h1 {
         // 隐藏
         text-indent: -999px;
+    }
+    @media screen and (max-width: ${minscreenwidth}) {
+        display: none;
     }
 `
 export const Nav = styled.div`
@@ -54,8 +62,18 @@ export const NavItem = styled.div`
     }
     &.home {
         padding-left: 0;
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: ${minscreenwidth}) {
             padding: 0;
+        }
+
+        @media screen and (max-width: ${minscreenwidth}) {
+            padding-left: 20px;
+        }
+    }
+    &.nickname {
+        // 视口小于 380 的隐藏用户名
+        @media screen and (max-width: 380px) {
+            display: none;
         }
     }
     &.logout, &.login {
@@ -78,49 +96,44 @@ export const NavItem = styled.div`
 export const SearchWrapper = styled.div`
     float: left;
     position: relative;
+    // flex 让 input 自适应
+    display: flex;
+    max-width: 300px;
 
     .zoom {
         position: absolute;
         right: 4px;
-        bottom: 4px;
+        bottom: 5px;
         width: 30px;
         height: 30px;
         border-radius: 15px;
         line-height: 30px;
         text-align: center;
+        cursor: pointer;
+        user-select: none;
         &.focused {
             background-color: gray;
             color: #fff;
         }
+        @media screen and (max-width: ${minscreenwidth}) {
+            right: 14px;
+        }
+        &:active {
+            background-color: #333;
+        }
+    }
+    // 小屏幕搜索框单独占用一行
+    @media screen and (max-width: ${minscreenwidth}) {
+        max-width: 100%;
+        width: 100%;
     }
 `
 export const NavSearch = styled.input.attrs({
     placeholder: '搜索'
 })`
-    // 动画
-    &.stretch-enter {
-        transition: all 0.3s ease-in;
-    }
-    &.stretch-enter-active {
-        width: 300px;
-    }
-    &.stretch-enter-done {
-        width: 300px;
-    }
-    &.stretch-exit {
-        transition: all 0.3s ease-in;
-    }
-    &.stretch-exit-active {
-        width: 240px;
-    }
-    &.stretch-exit-done {
-        width: 240px;
-    }
-
-    width: 240px;
-    height: 38px;
+    width: 100%;
+    height: 40px;
     margin-top: 9px;
-    margin-left: 20px;
     padding: 0 35px 0 20px;
     box-sizing: border-box;
     border: none;
@@ -129,6 +142,7 @@ export const NavSearch = styled.input.attrs({
     background-color: #eee;
     font-size: 14px;
     color: #777;
+    margin-left: 10px;
     &::placeholder {
         color: #999;
     }
@@ -136,81 +150,8 @@ export const NavSearch = styled.input.attrs({
     // &.focused {
     //     width: 300px;
     // }
-`
-export const SearchInfo = styled.div`
-    box-sizing: border-box;
-    position: absolute;
-    left: 20px;
-    margin-top: 9px;
-    top: 100%;
-    width: 250px;
-    padding: 20px 20px 10px 20px;
-    box-shadow: 0 0 4px rgba(0,0,0,.2);
-    background-color: #fff;
-    z-index: 9;
-    // 三角形
-    &::before {
-        content: '';
-        width: 0;
-        height: 0;
-        border: 12px solid transparent;
-        border-bottom-color: #fff;
-        position: absolute;
-        left: 20px;
-        top: -22px;
-    }
-    &::after {
-        content: '';
-        -webkit-transform: rotate(45deg);
-        box-shadow: -2px -2px 2px rgba(0,0,0,.2);
-        width: 10px;
-        height: 10px;
-        background-color: #fff;
-        z-index: -1;
-        position: absolute;
-        left: 27px;
-        top: -5px;
-    }
-`
-export const SearchInfoTitle = styled.div`
-    margin-bottom: 15px;
-    font-size: 14px;
-    color: #787878;
-`
-export const SearchInfoSwitch = styled.span`
-    font-size: 13px;
-    float: right;
-    cursor: pointer;
-    user-select: none;
-    .spin {
-        float: left;
-        font-size: 13px;
-        margin-right: 4px;
-        transition: all .3s ease-in;
-        // 围绕中心点旋转
-        transform-origin: center center;
-    }
-    &:hover {
-        color: #333;
-    }
-`
-export const SearchInfoList = styled.div`
-    overflow: hidden;
-`
-export const SearchInfoItem = styled.a`
-    font-size: 12px;
-    padding: 0 5px;
-    line-height: 20px;
-    border: 1px solid #ddd;
-    color: #787878;
-    border-radius: 3px;
-    float: left;
-    margin-right: 8px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    &:hover {
-        color: #333;
-        border: 1px solid #666;
+    @media screen and (max-width: ${minscreenwidth}) {
+        margin: 0 10px;
     }
 `
 export const Addition = styled.div`
