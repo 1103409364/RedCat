@@ -108,7 +108,7 @@ class Write extends React.PureComponent {
             html: htmlText,
             desc: descText,
             author: this.props.author,
-            // id: 文章 id 自己生成
+            id: this.props.id //文章 id
         }
         this.props.postArticle(article, this.ipt);
     }
@@ -264,6 +264,7 @@ const mapStateToProps = state => ({
     title: state.getIn(['write', 'title']),
     html: state.getIn(['write', 'html']),
     text: state.getIn(['write', 'text']),
+    id: state.getIn(['write', 'id']),
 });
 
 const mapDispatchToProps = dispatch => ({

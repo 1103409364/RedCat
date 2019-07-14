@@ -33,9 +33,9 @@ export const postArticle = (article, inputDiv) => {
         axios.post('/api/write/post', article)
             .then(res => {
                 const result = res.data.success;
-                console.log(result)
+                // console.log(result)
                 if (result) {
-                    // console.log(result)
+                    // 保存成功的时候,改变状态, 清空内容
                     dispatch(changeStatus(1));
                     dispatch(changeTitle(''));
                     dispatch(changeText(''));
