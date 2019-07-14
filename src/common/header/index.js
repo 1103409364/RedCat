@@ -54,7 +54,7 @@ class Header extends React.PureComponent {
                         }
                         {
                             // 路由到注册页
-                            // 登陆成功的时候隐藏注册按钮
+                            // 登录成功的时候隐藏注册按钮
                             isAuthenticated ? null :
                                 <Link to="/register" >
                                     <Button className="reg">注册</Button>
@@ -77,7 +77,7 @@ class Header extends React.PureComponent {
                         }
                         {
                             // 条件渲染,根据 isAuthenticated 的值,渲染不同的组件.
-                            // 点击登陆跳转到登录页
+                            // 点击登录跳转到登录页
                             this.props.isAuthenticated ?
                                 <div>
                                     <NavItem
@@ -90,7 +90,7 @@ class Header extends React.PureComponent {
                                 </div>
                                 :
                                 <Link to="/login" >
-                                    <NavItem className="right login">登陆</NavItem>
+                                    <NavItem className="right login">登录</NavItem>
                                 </Link>
                         }
                         {
@@ -106,17 +106,31 @@ class Header extends React.PureComponent {
                                         onFocus={() => handleInputFocus()}
                                         onBlur={handleInputBlur}
                                         onChange={handleInputChange}
+                                        onKeyDown = {(e) => {
+                                            // 监听回车
+                                            if(e.keyCode === 13) {
+                                                if(!isAuthenticated) {
+                                                    alert('请登录后在再进行搜索操作');
+                                                    history.push('/login');
+                                                    return;
+                                                }
+                                                handleSearach(searchValue);}}}
                                         className={focused ? 'focused' : ''}
                                     />
                                     {/* 当鼠标进入放大镜或者输入框取得焦点时, 改变放大镜样式 */}
                                     <i className={focused || mouseIn ? 'focused iconfont zoom' : 'iconfont zoom'}
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}
-                                        onClick={() => {handleSearach(searchValue)}}
+                                        onClick={() => {
+                                            if(!isAuthenticated) {
+                                                alert('请登录后在再进行搜索操作');
+                                                history.push('/login');
+                                                return;
+                                            }
+                                            handleSearach(searchValue)}}
                                     >&#xe600;</i>
                                 </SearchWrapper> : null
                         }
-
                     </ItemWrapper>
                 </Nav>
             </HeaderWrapper>
@@ -160,7 +174,7 @@ const mapDispatchToProps = dispatch => {
         handleMouseLeave() {
             dispatch(actionCreators.mouseLeave());
         },
-        // 退出登陆,从 login 中引入 loginActionCreators
+        // 退出登录,从 login 中引入 loginActionCreators
         logoutUser(history) {
             dispatch(loginActionCreators.logoutUser(history));
         },

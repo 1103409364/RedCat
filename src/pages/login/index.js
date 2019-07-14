@@ -42,12 +42,12 @@ class Login extends React.PureComponent {
     }
 
     componentDidMount() {
-        // 已登录访问登陆页时,立即跳转到首页
+        // 已登录访问登录页时,立即跳转到首页
         // if (this.props.isAuthenticated) {
         //     this.props.history.push('/');
         // }
 
-        document.title = '登陆-rr';
+        document.title = '登录-rr';
     }
     // 组件卸载时,清空 error
     componentWillUnmount() {
@@ -63,7 +63,7 @@ class Login extends React.PureComponent {
                     <LoginBox>
                         <LoginTitle>
                             <Link to="/login">
-                                <SignIn>登陆</SignIn>
+                                <SignIn>登录</SignIn>
                             </Link>
                             <Link to="/register">
                                 <SignUp>注册</SignUp>
@@ -84,7 +84,7 @@ class Login extends React.PureComponent {
                         <Tip>{errors.get('password')}</Tip>
                         <Button
                             onClick={this.handleSubmit}
-                        >登陆</Button>
+                        >登录</Button>
                     </LoginBox>
                 </LoginWrapper>
             )

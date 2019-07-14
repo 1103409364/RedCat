@@ -47,8 +47,8 @@ class Register extends React.PureComponent {
     }
 
     componentDidMount() {
-        // 检查是否经过登陆验证
-        // 如果用户已经登陆了,当用户再访问登陆或者注册的路由时,应该立即跳转到首页
+        // 检查是否经过登录验证
+        // 如果用户已经登录了,当用户再访问登录或者注册的路由时,应该立即跳转到首页
         // if (this.props.isAuthenticated) {
         //     this.props.history.push('/');
         // }
@@ -68,7 +68,7 @@ class Register extends React.PureComponent {
                     <LoginBox>
                         <LoginTitle>
                             <Link to="/login">
-                                <SignIn>登陆</SignIn>
+                                <SignIn>登录</SignIn>
                             </Link>
                             <Link to="/register">
                                 <SignUp >注册</SignUp>

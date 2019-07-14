@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import logoPic from '../../statics/logo.png';
 // 主色调 #e7503f
 const rrcolor = '#e7503f';
-const minscreenwidth = '750px';
+const minscreenwidth = '850px';
 
 export const HeaderWrapper = styled.div`
     min-height: 56px;
@@ -49,6 +49,9 @@ export const ItemWrapper = styled.div`
         border-radius: 50%;
         vertical-align: middle;
         margin-top:8px;
+        @media screen and (max-width: 380px ) {
+            display: none;
+        }
     }
 `
 export const NavItem = styled.div`
@@ -72,7 +75,7 @@ export const NavItem = styled.div`
     }
     &.nickname {
         // 视口小于 380 的隐藏用户名
-        @media screen and (max-width: 380px) {
+        @media screen and (max-width: 600px) {
             display: none;
         }
     }
