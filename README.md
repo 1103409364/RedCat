@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/1103409364/rr-blog/blob/master/src/statics/logo.png?raw=true" alt="logo">
+  <img src="https://github.com/1103409364/rr-blog/blob/master/src/statics/logo.jpg?raw=true" alt="logo">
 </p>
 <!-- <h1 align="center"><a href="#" target="_blank">RedCat</a></h1> -->
 
