@@ -15,7 +15,7 @@ import { BackTop } from '../../common/BackTop/style.js';
 
 class Detail extends React.PureComponent {
     render() {
-        const { content, title, author, updateDate, showScroll, isAuthenticated, userName, handleEdit, handleDelete, id } = this.props;
+        const { content, title, author, updateDate, showScroll, isAuthenticated, userName, handleDelete, id } = this.props;
         // 拿到上一个页面传进来的 id
         // console.log(this.props.match.params.id);
         return (

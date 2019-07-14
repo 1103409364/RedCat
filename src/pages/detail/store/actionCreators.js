@@ -27,6 +27,7 @@ export const deleteArticle = (articleId, history) => {
         axios.delete('/api/detail/delete', { data: { id: articleId } }).then(res => {
             if (res.data.success) {
                 const result = res.data.data;
+                console.log(result);
                 // 显示删除成功消息
                 alert('删除成功');
                 dispatch(changeDetail({}));

@@ -46,7 +46,7 @@ class Home extends React.PureComponent {
     }
 
     bindScrollEvents() {
-        window.addEventListener('scroll', this.props.changeScrollTopShow)
+        window.addEventListener('scroll', this.props.changeScrollTopShow);
     }
 
     componentDidMount() {
@@ -60,7 +60,7 @@ class Home extends React.PureComponent {
     }
     // 在 window 上绑定了事件，可能会影响其他组件。在组件卸载的时候移除这个事件监听
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.props.changeScrollTopShow)
+        window.removeEventListener('scroll', this.props.changeScrollTopShow);
     }
 }
 

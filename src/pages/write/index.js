@@ -26,12 +26,10 @@ class Write extends React.PureComponent {
             isEmpty: true, //输入框是否为空
             isEmptyTitle: true, //输入框是否为空
             showTip: false, //是否显示提示文字
-            showScroll: false
         }
 
         this.handleTitleInput = this.handleTitleInput.bind(this);
         this.handleInput = this.handleInput.bind(this);
-        this.changeScrollTopShow = this.changeScrollTopShow.bind(this);
         // this.handleKeyDown = this.handleKeyDown.bind(this);
         this.clear = this.clear.bind(this);
         this.save = this.save.bind(this);
@@ -134,42 +132,22 @@ class Write extends React.PureComponent {
         });
     }
 
-    changeScrollTopShow() {
-        // toggleTopShow 显示或者隐藏回到顶部按钮的 actionCreator
-        if (document.documentElement.scrollTop > 300) {
-            this.setState(() => ({ showScroll: true }));
-        } else {
-            this.setState(() => ({ showScroll: false }));
-        }
-    }
-    // 绑定事件，监听 scrollTop
-    bindScrollEvents() {
-        window.addEventListener('scroll', this.changeScrollTopShow);
-
-    }
-
     componentDidMount() {
         // 更改 pathname, 用来改变导航样式
         this.props.changePath(this.props.history.location.pathname);
-        document.title = '写文章-rr';
 
         // 从查询字符串中提取文章的 id
-        const articleId = this.props.location.search.replace(/^\?\=/, '');
+        const articleId = this.props.location.search.replace(/^\?=/, '');
         // id 不为空就拉取文章内容填到输入框中
         if (articleId !== '') {
             this.props.getDetail(articleId, this.ipt);
-            this.setState({
+            this.setState(() => ({
                 isEmpty: false, //输入框是否为空
                 isEmptyTitle: false, //输入框是否为空
-            })
+            }));
         }
-        // 回到顶部按钮绑定事件
-        this.bindScrollEvents();
-    }
-
-    // 在 window 上绑定了事件，可能会影响其他组件。在组件卸载的时候移除这个事件监听
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.props.changeScrollTopShow)
+        
+        document.title = '写文章-rr';
     }
 
     render() {
@@ -248,7 +226,7 @@ class Write extends React.PureComponent {
                     </div>
                     {/* 回到顶部 */}
 
-                    {this.state.showScroll ? <BackTop onClick={this.handleScrollTop}>BackTop</BackTop> : null}
+                    <BackTop onClick={this.handleScrollTop}>BackTop</BackTop>
                 </div>)
         }
 

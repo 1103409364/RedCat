@@ -65,7 +65,8 @@ class Header extends React.PureComponent {
     }
 
     render() {
-        const { focused, handleInputFocus, handleInputBlur, list, logoutUser, history, user, isAuthenticated, sendConfirmMail, pathname } = this.props;
+        // focused, handleInputFocus, handleInputBlur, list,
+        const {  logoutUser, history, user, isAuthenticated, sendConfirmMail, pathname } = this.props;
         const activeItem = {
             '/write': '写文章',
         }

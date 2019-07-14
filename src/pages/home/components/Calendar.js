@@ -18,12 +18,12 @@ class Calendar extends React.Component {
             'selecDay': this.dateNow.getDay(),
         }
 
-        // this.props.callback({
-        //     'year': this.dateNow.getFullYear(),
-        //     'month': this.dateNow.getMonth() + 1,
-        //     'date': this.dateNow.getDate(),
-        //     'day': this.dateNow.getDay(),
-        // });
+        this.props.callback({
+            'year': this.dateNow.getFullYear(),
+            'month': this.dateNow.getMonth() + 1,
+            'date': this.dateNow.getDate(),
+            'day': this.dateNow.getDay(),
+        });
     }
     // 计算某月的天数,计算方法：下月的上一天,也就是本月的最后一天，就是天数
     getMonDays(Y, M) {
@@ -57,7 +57,7 @@ class Calendar extends React.Component {
             'show': show
         }
         // 回调函数，参数为选中的年月日周组成的对象
-        // this.props.callback(selec);
+        this.props.callback(selec);
     }
 
     // 最后一个参数 true 表示日历保持显示状态
