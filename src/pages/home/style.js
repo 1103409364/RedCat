@@ -16,7 +16,8 @@ export const HomwWrapper = styled.div`
         visibility: hidden;
     }
     @media screen and (max-width: 900px) {
-        // box-sizing: border-box;
+        // 改变盒子防止出现横向滚动条
+        box-sizing: border-box;
         width: 100%;
         padding: 10px;
     }

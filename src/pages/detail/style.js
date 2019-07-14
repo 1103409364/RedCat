@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+const maxWith = '690px';
 
 export const DetailWrapper = styled.div`
-    max-width: 620px;
+    max-width: ${maxWith};
     margin: 0 auto;
     padding-top: 30px;
     &::after {

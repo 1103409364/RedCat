@@ -8,6 +8,7 @@ const defaultState = fromJS({
     title: '', //标题
     html: '', //mark 之后的 html 文本
     text: '', //原文，修改的时候从服务器拉取
+    id: '', //文章id
 });
 
 export default (state = defaultState, action) => {
@@ -20,8 +21,13 @@ export default (state = defaultState, action) => {
             return state.set('html', action.html);
         case actionTypes.CHANGE_TEXT:
             return state.set('text', action.text);
-        // case actionTypes.TOGGLE_SCROLL_TOP:
-        //     return state.set('showScroll', action.show);
+        case actionTypes.CHANGE_CONTENT:
+            return state.merge({
+                title: action.article.title,
+                html: action.article.html,
+                text: action.article.text,
+                id: action.article._id,
+            });
         default:
             return state;
     }

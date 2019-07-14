@@ -2,6 +2,11 @@ $inputColor: #1a73e8;
 $minHeight: 500px;
 $minWidth: 500px;
 $maxHeight: 100%;
+//文章最大宽度
+$maxWidth: 690px;
+// 预览和输入框之间的间隙
+$marginW: 25px;
+$top: 40px;
 // $shadow: 0 3px 2px rgba(0, 0, 0, .3);
 $shadow: none;
 // 主色调 #e7503f
@@ -10,9 +15,10 @@ $rrcolor: #e7503f;
 .TextEditor {
     font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
     width: 90%;
+    max-width: $maxWidth * 2 + 50px;
     margin: 20px auto;
-    height: 100%;
-    min-width: 900px;
+    // height: 100%;
+    // min-width: 900px;
     box-sizing: border-box;
 
     // 清除浮动
@@ -38,6 +44,7 @@ $rrcolor: #e7503f;
             -webkit-box-shadow: none;
             box-shadow: none;
         }
+
         ::-webkit-input-placeholder {
             color: #999;
         }
@@ -60,11 +67,11 @@ $rrcolor: #e7503f;
     .textareaWrap {
         float: left;
         width: 48%;
+        max-width: $maxWidth;
         min-height: $minHeight;
-        // height: 100%;
         position: relative;
         flex-direction: column;
-        margin-right: 1%;
+        margin-right: $marginW;
         box-sizing: border-box;
         box-shadow: $shadow;
         border-top: 1px solid #f0f0f0;
@@ -77,7 +84,7 @@ $rrcolor: #e7503f;
             color: #999;
             position: absolute;
             left: 0px;
-            top: 30px;
+            top: $top;
 
             &.hide {
                 display: none;
@@ -85,11 +92,9 @@ $rrcolor: #e7503f;
         }
 
         .textarea {
-            line-height: 1.6;
-            // min-width: $minWidth;
             min-height: $minHeight;
-            // max-height: $maxHeight;
-            padding: 30px 0px 20px 0px;
+            line-height: 1.6;
+            padding: $top 0px 20px 0px;
             // outline-color: $rrcolor;
             outline: none;
             color: #202124;
@@ -101,7 +106,7 @@ $rrcolor: #e7503f;
             // caret-color: #5729e9;
             &:focus {
                 border-top: 1px solid $rrcolor;
-                padding-top: 29px;
+                padding-top: $top - 1;
             }
 
             // 限制输入纯文本, 只有webkit支持
@@ -147,8 +152,6 @@ $rrcolor: #e7503f;
                 }
             }
 
-
-
             i {
                 font-size: 20px;
                 line-height: 30px;
@@ -192,14 +195,15 @@ $rrcolor: #e7503f;
         box-shadow: 0 0 3px #07070770;
         border-radius: 3px;
         transition: all .5s ease;
+
         &.success {
             color: #1a73e8;
-            top: 40%;
+            top: 5px;
         }
 
         &.failed {
             color: red;
-            top: 30%;
+            top: 5px;
         }
     }
 
@@ -207,13 +211,14 @@ $rrcolor: #e7503f;
         float: left;
         box-sizing: border-box;
         width: 48%;
+        max-width: $maxWidth;
         // min-width: $minWidth;
         min-height: $minHeight;
         // max-height: $maxHeight;
         // overflow-x: auto;
         word-wrap: break-word;
-        padding: 30px 0 20px;
-        margin-left: 1%;
+        padding: $top 0 20px;
+        margin-left: $marginW;
         transition: all 0.3s ease;
         border-top: 1px solid $rrcolor;
         background-color: #fff;
@@ -224,62 +229,88 @@ $rrcolor: #e7503f;
         &.empty {
             background-color: #DCE2F1;
             border-top: 1px solid #f0f0f0;
+
             // opacity: 0.3;
             &::after {
+                content: '预 览';
+                position: absolute;
+                width: 232px;
+                height: 160px;
                 opacity: 1;
                 left: 50%;
                 top: 50%;
-                opacity: 0.5;
+                margin-left: -116px;
+                margin-top: -80px;
+                font-size: 70px;
+                text-align: center;
+                color: #999;
+                transition: all .3s ease;
             }
         }
 
         &::after {
-            width: 200px;
-            height: 160px;
-            content: '预览';
-            font-size: 100px;
+            content: '预 览';
             position: absolute;
-            left: 50%;
-            top: -500px;
-            margin-left: -100px;
-            margin-top: -80px;
+            width: 100%;
+            height: 16px;
+            left: 0;
+            top: 0;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            color: $rrcolor;
+            transition: all .3s ease;
+        }
+    }
+    // 宽度 48% * 2, 最大宽度 690 * 2, 在 48% * 2宽度大于 690 * 2 的时候, margin使用固定宽度, 小于的时候使用百分比, 否者无法居中
+    @media screen and (max-width: 1405px) {
+        .textareaWrap {
+            margin-right: 2%;
+        }
+        .preview {
+            margin-left: 2%;
+        }
+        & {
+            max-width: 100%;
         }
     }
 
     @media screen and (max-width: 900px) {
         .textareaWrap,
         .preview {
-            // width: 100%;
-            // margin: 0;
-            box-shadow: none;
+            margin: 0 auto;
+            width: 100%;
+            float: none;
+            min-height: 400px;
+
+            .textarea {
+                min-height: 400px;
+            }
         }
     }
 
     @media screen and (max-width: 600px) {
+
         .textareaWrap,
         .preview {
             width: 100%;
-            float: none;
-            padding-left: 10px;
-            padding-right: 10px;
-            margin: 0 auto;
-            .App-btn {
-                right: 10px;
-            }
-            .placeholder {
-                left: 10px;
+            min-height: 350px;
+
+            .textarea {
+                min-height: 350px;
             }
         }
-      
+
         .titleEditor {
-            padding: 0 10px;
+
+            input.title {
+                font-size: 25px;
+            }
         }
 
         & {
             overflow: hidden;
-            width: 100%;
             min-width: 400px;
-            margin: 0;
         }
     }
 }

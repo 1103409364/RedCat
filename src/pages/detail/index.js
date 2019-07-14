@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import time from 'time-formater';
 import { actionCreators } from './store';
 import { actionCreators as headerActionCreators } from '../../common/header/store';
@@ -29,13 +29,12 @@ class Detail extends React.PureComponent {
                     </a> */}
                     <div className="info">
                         {/* <a href={`/api/me/${author}`}> 跳转到作者主页 */}
-                        {updateDate ?  `作者：${author} ${time(updateDate).format('YYYY-MM-DD HH:mm:ss')}` : ''}
+                        {updateDate ? `作者：${author} ${time(updateDate).format('YYYY-MM-DD HH:mm:ss')}` : ''}
                         {
                             isAuthenticated && author === userName ?
                                 <div className="btnWrap">
-                                    <span className="edit"
-                                        onClick={handleEdit}
-                                    >编辑</span>
+                                    {/* 点击修改的时候,跳转到 write 页,带上文章的 id */}
+                                    <Link to={`/write?=${id}`}><span className="edit">修改</span></Link>
                                     <span className="delete"
                                         onClick={() => handleDelete(id, this.props.history)}
                                     >删除</span>
@@ -106,9 +105,6 @@ const mapDispatchToProps = dispatch => ({
     handleDelete(id, history) {
         // console.log(id);
         window.confirm('确定要删除吗?') && dispatch(actionCreators.deleteArticle(id, history))
-    },
-    handleEdit(id) {
-        console.log('Edit');
     }
 });
 

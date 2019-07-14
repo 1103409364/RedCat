@@ -78,7 +78,11 @@ class Header extends React.PureComponent {
         return (
             <HeaderWrapper>
                 <Nav>
-                    <Link to="/"><Logo /></Link>
+                    <Link to="/">
+                        <Logo>
+                            <h1>redcat-blog</h1>
+                        </Logo>
+                    </Link>
                     {/* Link 不刷新，a刷新 */}
                     {/* <a href="/"><Logo /></a> */}
 

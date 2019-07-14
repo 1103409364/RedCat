@@ -79,13 +79,20 @@ class Write extends React.PureComponent {
     }
 
     save() {
+        // 发布前检查输入内容是否为空
+        let isEmptyTitle = this.checkIsEmpty(this.props.title);
+        let isEmptyBody = this.checkIsEmpty(this.props.text);
+        this.setState(() => ({
+            isEmptyTitle: isEmptyTitle,
+            isEmpty: isEmptyBody,
+        }));
         // 只有激活用户才能发表文章
-        if(!this.props.islive) {
+        if (!this.props.islive) {
             alert('请先激活 Email');
             return;
         }
         // 检查输入是否为空
-        if (this.state.isEmpty || this.state.isEmptyTitle) {
+        if (isEmptyTitle || isEmptyBody) {
             this.setState({
                 'showTip': true,
             })
@@ -130,23 +137,33 @@ class Write extends React.PureComponent {
     changeScrollTopShow() {
         // toggleTopShow 显示或者隐藏回到顶部按钮的 actionCreator
         if (document.documentElement.scrollTop > 300) {
-            this.setState(()=>({showScroll: true}));
+            this.setState(() => ({ showScroll: true }));
         } else {
-            this.setState(()=>({showScroll: false}));
+            this.setState(() => ({ showScroll: false }));
         }
     }
     // 绑定事件，监听 scrollTop
     bindScrollEvents() {
-        window.addEventListener('scroll',this.changeScrollTopShow);
+        window.addEventListener('scroll', this.changeScrollTopShow);
 
     }
 
     componentDidMount() {
-        // if (this.ipt) { this.ipt.focus()}
-        // 更改地址栏路径
+        // 更改 pathname, 用来改变导航样式
         this.props.changePath(this.props.history.location.pathname);
         document.title = '写文章-rr';
-        // this.ipt.selectionEnd = this.ipt.innerText.length;
+
+        // 从查询字符串中提取文章的 id
+        const articleId = this.props.location.search.replace(/^\?\=/, '');
+        // id 不为空就拉取文章内容填到输入框中
+        if (articleId !== '') {
+            this.props.getDetail(articleId, this.ipt);
+            this.setState({
+                isEmpty: false, //输入框是否为空
+                isEmptyTitle: false, //输入框是否为空
+            })
+        }
+        // 回到顶部按钮绑定事件
         this.bindScrollEvents();
     }
 
@@ -156,7 +173,7 @@ class Write extends React.PureComponent {
     }
 
     render() {
-        const { isAuthenticated, postStatus, title, html } = this.props;
+        const { isAuthenticated, postStatus, title, html} = this.props;
         const postTipClass = classNames({
             postTip: true,
             success: postStatus === 1,
@@ -230,9 +247,10 @@ class Write extends React.PureComponent {
                         {postStatus === 1 ? '文章发表成功' : postStatus === -1 ? '服务器错误请稍后再试' : ''}
                     </div>
                     {/* 回到顶部 */}
-                    
+
                     {this.state.showScroll ? <BackTop onClick={this.handleScrollTop}>BackTop</BackTop> : null}
-                </div>)}
+                </div>)
+        }
 
         return <Redirect to="/login" />
     }
@@ -263,6 +281,9 @@ const mapDispatchToProps = dispatch => ({
     },
     changeText(text) {
         dispatch(actionCreators.changeText(text));
+    },
+    getDetail(id, inputDiv) {
+        dispatch(actionCreators.getDetail(id, inputDiv));
     }
 });
 

@@ -9,7 +9,6 @@ const changeDetail = (data) => ({
 // 获得文章全部内容
 export const getDetail = (id) => {
     return (dispatch) => {
-        axios.get('/api/users/me');
         // 后端根据不同的 id 返回内容
         axios.get('/api/detail/article?id=' + id).then(res => {
             const result = res.data.data;

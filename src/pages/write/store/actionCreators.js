@@ -33,6 +33,7 @@ export const postArticle = (article, inputDiv) => {
         axios.post('/api/write/post', article)
             .then(res => {
                 const result = res.data.success;
+                console.log(result)
                 if (result) {
                     // console.log(result)
                     dispatch(changeStatus(1));
@@ -46,6 +47,7 @@ export const postArticle = (article, inputDiv) => {
                     window.timmer = setTimeout(() => dispatch(restoreStatus()), 2000);
                 } else {
                     if(window.timmer) clearTimeout(window.timmer);
+                    dispatch(changeStatus(-1));
                     window.timmer = setTimeout(() => dispatch(restoreStatus()), 2000);
                 }
             }).catch((e) => {
@@ -57,7 +59,26 @@ export const postArticle = (article, inputDiv) => {
     }
 }
 
-// 控制回到顶部按钮的显示和隐藏, 同时使用了 localstate 无法绑定全局 state
+// 改变输入框内容为要修改的文章
+export const changeContent = (article) => ({
+    type: actionTypes.CHANGE_CONTENT,
+    article
+});
+
+export const getDetail = (id, inputDiv) => {
+    return (dispatch) => {
+        axios.get('/api/detail/article?id=' + id).then(res => {
+            const article = res.data.data;
+            dispatch(changeContent(article));
+            // 设置 div 输入框的值
+            inputDiv.innerText = article.text;
+        }).catch(() => {
+            console.log('error');
+        });
+    }
+}
+
+// 控制回到顶部按钮的显示和隐藏, 同时使用了 localstate 无法响应全局 state,改用 localstate
 // export const toggleTopShow = (show) => ({
 //     type: actionTypes.TOGGLE_SCROLL_TOP,
 //     show

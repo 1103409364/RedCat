@@ -16,6 +16,10 @@ export const Logo = styled.div`
     width: 100px;
     background: url(${logoPic}) no-repeat center bottom;
     background-size: 50px 50px;
+    h1 {
+        // 隐藏
+        text-indent: -999px;
+    }
 `
 export const Nav = styled.div`
     max-width: 1440px;
