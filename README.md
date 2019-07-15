@@ -11,7 +11,7 @@
 * React 版本：v16.8.6
 * Node.js 版本：v10.15.3
 * 线上地址：暂未上线
-* 后端项目： [链接](https://github.com/1103409364/rr-blog-backend)
+* 项目后端： [链接](https://github.com/1103409364/rr-blog-backend)
 
 ### 功能特性
 * 新用户注册、登录、退出、邮箱验证
