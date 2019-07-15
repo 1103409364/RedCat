@@ -26,7 +26,10 @@
 首先要开启后台服务 [链接](https://github.com/1103409364/rr-blog-backend)
 ```
 $ yarn
-$ npm install node-sass
 $ yarn start
 ```
-提醒：node-sass 用 yarn 可能装不上
+node-sass 如果装不上，配置一下：
+```
+yarn config set registry https://registry.npm.taobao.org -g
+yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass -g
+```
