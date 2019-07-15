@@ -25,5 +25,7 @@
 首先要开启后台服务 [链接](https://github.com/1103409364/rr-blog-backend)
 ```
 $ yarn
+$ npm install node-sass
 $ yarn start
 ```
+提醒：node-sass 用 yarn 可能装不上

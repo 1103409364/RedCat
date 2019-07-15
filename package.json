@@ -1,5 +1,5 @@
 {
-  "name": "blog",
+  "name": "RedCat",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:8000",
@@ -10,7 +10,6 @@
     "immutable": "^4.0.0-rc.12",
     "jwt-decode": "^2.2.0",
     "marked": "^0.7.0",
-    "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-loadable": "^5.5.0",
@@ -44,5 +43,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/1103409364/RedCat.git",
+  "author": "1103409364 <1103409364@qq.com>",
+  "license": "MIT"
 }
