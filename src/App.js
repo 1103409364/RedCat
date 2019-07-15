@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+//BrowserRouter 刷新报错 改用 HashRouter
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Header from './common/header';
 import Home from './pages/home/loadable.js';
 import Detail from './pages/detail/loadable.js';
