@@ -6,8 +6,7 @@
 ### 简要介绍
 * 项目：RedCat
 * 类型：博客
-* 前端技术： React、Redux、Redux-thunk 等全家桶
-* 后端技术： Node.js、Express 等
+* 主要技术： React、Redux、Redux-thunk、react-router、immutable.js、jwt 等
 * React 版本：v16.8.6
 * Node.js 版本：v10.15.3
 * 线上地址：暂未上线
