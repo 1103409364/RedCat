@@ -9,12 +9,12 @@ const defaultState = fromJS({
     list: [],
     page: 1,
     totalPage: 1,
-    pathname: '/', //当前所处的页面,根据这个属性改变导航样式: 选中或者未选中
+    pathname: '/', // 当前所处的页面,根据这个属性改变导航样式: 选中或者未选中
     searchValue: ''
 });
 
-export default (state=defaultState,action ) => {
-    switch(action.type) {
+export default (state = defaultState, action) => {
+    switch (action.type) {
         case actionTypes.SEARCH_FOCUS:
             // immutbale 对象的 set 方法，会结合之前的 immutable 对象的值和设置的值，返回一个全新的对象
             return state.set('focused', true);
@@ -29,7 +29,7 @@ export default (state=defaultState,action ) => {
             return state.merge({
                 list: action.data,
                 totalPage: action.totalPage
-            })
+            });
         case actionTypes.MOUSE_ENTER:
             return state.set('mouseIn', true);
         case actionTypes.MOUSE_LEAVE:
@@ -41,4 +41,4 @@ export default (state=defaultState,action ) => {
         default:
             return state;
     }
-}
+};

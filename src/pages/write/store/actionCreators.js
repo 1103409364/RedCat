@@ -43,21 +43,21 @@ export const postArticle = (article, inputDiv) => {
                     // 组件中传一个dom过来，清空输入框。HTML 属性无法设置 div 的值，只能操作 dom
                     inputDiv.innerText = '';
                     // 显示提示消息框。使用定时器，两秒之后恢复默认状态
-                    if(window.timmer) clearTimeout(window.timmer);
+                    if (window.timmer) clearTimeout(window.timmer);
                     window.timmer = setTimeout(() => dispatch(restoreStatus()), 2000);
                 } else {
-                    if(window.timmer) clearTimeout(window.timmer);
+                    if (window.timmer) clearTimeout(window.timmer);
                     dispatch(changeStatus(-1));
                     window.timmer = setTimeout(() => dispatch(restoreStatus()), 2000);
                 }
             }).catch((e) => {
                 console.log('error', e);
                 dispatch(changeStatus(-1));
-                if(window.timmer) clearTimeout(window.timmer);
+                if (window.timmer) clearTimeout(window.timmer);
                 window.timmer = setTimeout(() => dispatch(restoreStatus()), 2000);
             });
-    }
-}
+    };
+};
 
 // 改变输入框内容为要修改的文章
 export const changeContent = (article) => ({
@@ -75,8 +75,8 @@ export const getDetail = (id, inputDiv) => {
         }).catch(() => {
             console.log('error');
         });
-    }
-}
+    };
+};
 
 // 控制回到顶部按钮的显示和隐藏, 同时使用了 localstate 无法响应全局 state,改用 localstate
 // export const toggleTopShow = (show) => ({

@@ -11,13 +11,13 @@ const changeHomeData = result => ({
 export const restorePageIndex = () => ({
     type: actionTypes.RESTORE_PAGE_INDEX,
     defaultIndex: 1
-})
+});
 
 // 加载更多文章, 后端分页
 const addArticleList = (result) => ({
     type: actionTypes.ADD_ARTICLE_LIST,
     payload: result
-})
+});
 
 // 获得列表初始数据, 默认显示第一页
 export const getHomeData = () => {
@@ -29,16 +29,16 @@ export const getHomeData = () => {
                 const listData = {
                     articleList: result.articles,
                     totalPage: result.totalPage
-                }
+                };
                 dispatch(changeHomeData(listData));
             } else {
                 console.log(result);
             }
         }).catch(() => {
             console.log('error');
-        })
-    }
-}
+        });
+    };
+};
 
 // 搜索文章, 默认显示第一页, 中文会被 uri 编码
 export const getSomeList = (searchValue) => {
@@ -49,7 +49,7 @@ export const getSomeList = (searchValue) => {
                 const listData = {
                     articleList: result.articles,
                     totalPage: result.totalPage
-                }
+                };
                 dispatch(changeHomeData(listData));
                 dispatch(restorePageIndex());
 
@@ -58,9 +58,9 @@ export const getSomeList = (searchValue) => {
             }
         }).catch(() => {
             console.log('error');
-        })
-    }
-}
+        });
+    };
+};
 
 // 获取更多文章,后端根据请求参数中的页码和查询字符串返回不同的内容
 export const getMoreList = (nextPage, searchValue) => {
@@ -72,23 +72,23 @@ export const getMoreList = (nextPage, searchValue) => {
                 const moreList = {
                     articleList: result.articles,
                     nextPage
-                }
+                };
                 dispatch(addArticleList(moreList));
             } else {
                 console.log(result);
             }
-            console.log(result)
+            console.log(result);
         }).catch(() => {
             console.log('error');
-        })
-    }
-}
+        });
+    };
+};
 
 // 改变 banner 图
 const changeBannerImg = bannerImg => ({
     type: actionTypes.CHANGE_BANNERIMG,
     bannerImg
-})
+});
 // 获得 banner 图
 export const getBannerImg = () => {
     return (dispatch) => {
@@ -98,12 +98,12 @@ export const getBannerImg = () => {
             dispatch(changeBannerImg(imgUrl));
         }).catch(() => {
             console.log('error');
-        })
-    }
-}
+        });
+    };
+};
 
 // 控制回到顶部按钮的显示和隐藏
 export const toggleTopShow = (show) => ({
     type: actionTypes.TOGGLE_SCROLL_TOP,
     show
-})
+});

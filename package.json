@@ -25,6 +25,9 @@
     "styled-components": "^4.3.2",
     "time-formater": "^1.1.2"
   },
+  "devDependencies": {
+    "eslint-config-alloy": "^2.0.5"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

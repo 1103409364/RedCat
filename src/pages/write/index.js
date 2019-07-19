@@ -13,9 +13,9 @@ import { BackTop } from '../../common/BackTop/style.js';
 
 marked.setOptions({
     highlight(code) {
-        return highlight.highlightAuto(code).value
+        return highlight.highlightAuto(code).value;
     }
-})
+});
 
 class Write extends React.PureComponent {
     constructor(props) {
@@ -23,16 +23,34 @@ class Write extends React.PureComponent {
         // 将 html text title 交给 redux 管理
         this.state = {
             focus: false,
-            isEmpty: true, //输入框是否为空
-            isEmptyTitle: true, //输入框是否为空
-            showTip: false, //是否显示提示文字
-        }
+            isEmpty: true, // 输入框是否为空
+            isEmptyTitle: true, // 输入框是否为空
+            showTip: false, // 是否显示提示文字
+        };
 
         this.handleTitleInput = this.handleTitleInput.bind(this);
         this.handleInput = this.handleInput.bind(this);
         // this.handleKeyDown = this.handleKeyDown.bind(this);
         this.clear = this.clear.bind(this);
         this.save = this.save.bind(this);
+    }
+
+    componentDidMount() {
+        // 更改 pathname, 用来改变导航样式
+        this.props.changePath(this.props.history.location.pathname);
+
+        // 从查询字符串中提取文章的 id
+        const articleId = this.props.location.search.replace(/^\?=/, '');
+        // id 不为空就拉取文章内容填到输入框中
+        if (articleId !== '') {
+            this.props.getDetail(articleId, this.ipt);
+            this.setState(() => ({
+                isEmpty: false, // 输入框是否为空
+                isEmptyTitle: false, // 输入框是否为空
+            }));
+        }
+
+        document.title = '写文章-rr';
     }
     // 检查输入是否为空
     checkIsEmpty(text) {
@@ -53,7 +71,7 @@ class Write extends React.PureComponent {
     // 输入事件处理
     handleInput(e) {
         let text = e.target.innerText || e.target.textContent;
-        let html = marked(text, { breaks: true })
+        let html = marked(text, { breaks: true });
         let isEmpty = this.checkIsEmpty(text);
         // console.log(html.substr(0, 50))
         this.setState(() => ({
@@ -66,12 +84,12 @@ class Write extends React.PureComponent {
 
     // 从 HTML 中提取纯文本
     getPlainText(html) {
-        //动态创建一个容器标签元素，如DIV
-        var temp = document.createElement("div");
-        //将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+        // 动态创建一个容器标签元素，如DIV
+        let temp = document.createElement('div');
+        // 将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
         temp.innerHTML = html;
-        //返回这个元素的innerText(ie)或者textContent，即得到经过HTML解码的字符串了。
-        var output = temp.innerText || temp.textContent;
+        // 返回这个元素的innerText(ie)或者textContent，即得到经过HTML解码的字符串了。
+        let output = temp.innerText || temp.textContent;
         temp = null;
         return output;
     }
@@ -93,10 +111,10 @@ class Write extends React.PureComponent {
         if (isEmptyTitle || isEmptyBody) {
             this.setState({
                 'showTip': true,
-            })
+            });
             return;
         }
-        const htmlText = this.props.html
+        const htmlText = this.props.html;
         // 截取一部分正文作为简介
         const descText = this.getPlainText(htmlText).substr(0, 90) + '……';
         // 文章的标题，正文原文，mark之后的正文，作者id，文章id
@@ -106,8 +124,8 @@ class Write extends React.PureComponent {
             html: htmlText,
             desc: descText,
             author: this.props.author,
-            id: this.props.id //文章 id
-        }
+            id: this.props.id // 文章 id
+        };
         this.props.postArticle(article, this.ipt);
     }
     // 清空输入框
@@ -115,7 +133,7 @@ class Write extends React.PureComponent {
         this.setState({
             'html': '',
             'isEmpty': true,
-        })
+        });
 
         this.ipt.innerText = '';
         // this.ipt.focus();
@@ -128,30 +146,14 @@ class Write extends React.PureComponent {
     handleScrollTop() {
         window.scrollTo({
             top: 0,
-            behavior: "smooth"
+            behavior: 'smooth'
         });
     }
 
-    componentDidMount() {
-        // 更改 pathname, 用来改变导航样式
-        this.props.changePath(this.props.history.location.pathname);
 
-        // 从查询字符串中提取文章的 id
-        const articleId = this.props.location.search.replace(/^\?=/, '');
-        // id 不为空就拉取文章内容填到输入框中
-        if (articleId !== '') {
-            this.props.getDetail(articleId, this.ipt);
-            this.setState(() => ({
-                isEmpty: false, //输入框是否为空
-                isEmptyTitle: false, //输入框是否为空
-            }));
-        }
-
-        document.title = '写文章-rr';
-    }
 
     render() {
-        const { isAuthenticated, postStatus, title, html} = this.props;
+        const { isAuthenticated, postStatus, title, html } = this.props;
         const postTipClass = classNames({
             postTip: true,
             success: postStatus === 1,
@@ -181,12 +183,12 @@ class Write extends React.PureComponent {
                             onFocus={() => {
                                 this.setState({
                                     'focus': true
-                                })
+                                });
                             }}
                             onBlur={() => {
                                 this.setState({
                                     'focus': false
-                                })
+                                });
                             }}
                         />
                         {/* 模拟 placeholder */}
@@ -212,8 +214,7 @@ class Write extends React.PureComponent {
                             />
                         </div>
 
-                        <span className={this.state.showTip ? 'TextEditor-tip show' : 'TextEditor-tip'}
-                        >标题或正文为空，请输入
+                        <span className={this.state.showTip ? 'TextEditor-tip show' : 'TextEditor-tip'}>标题或正文为空，请输入
                         </span>
                     </div>
                     {/* 预览 */}
@@ -227,10 +228,10 @@ class Write extends React.PureComponent {
                     {/* 回到顶部 */}
 
                     <BackTop onClick={this.handleScrollTop}>BackTop</BackTop>
-                </div>)
+                </div>);
         }
 
-        return <Redirect to="/login" />
+        return <Redirect to="/login" />;
     }
 }
 

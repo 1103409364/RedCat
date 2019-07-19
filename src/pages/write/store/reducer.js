@@ -5,10 +5,10 @@ import { fromJS } from 'immutable';
 const defaultState = fromJS({
     // 状态码：0 表示未发送请求， 1 表示请求成功， -1 表示服务器错误
     postStatus: 0,
-    title: '', //标题
-    html: '', //mark 之后的 html 文本
-    text: '', //原文，修改的时候从服务器拉取
-    id: '', //文章id
+    title: '', // 标题
+    html: '', // mark 之后的 html 文本
+    text: '', // 原文，修改的时候从服务器拉取
+    id: '', // 文章id
 });
 
 export default (state = defaultState, action) => {
@@ -31,4 +31,4 @@ export default (state = defaultState, action) => {
         default:
             return state;
     }
-}
+};

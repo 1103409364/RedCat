@@ -25,12 +25,12 @@ export const loginUser = (user) => dispatch => {
                 payload: err.response.data
             });
         });
-}
+};
 
 export const setCurrentUser = decoded => ({
     type: actionTypes.SET_CURRENT_USER,
     payload: decoded
-})
+});
 
 export const logoutUser = (history) => dispatch => {
     // 删除 token
@@ -39,7 +39,7 @@ export const logoutUser = (history) => dispatch => {
     setAuthToken(false);
     dispatch(setCurrentUser({}));
     // history.push('/login');
-}
+};
 // 清空错误信息
 export const clearErrors = () => ({
     type: actionTypes.CLEAR_ERRORS,
@@ -47,7 +47,7 @@ export const clearErrors = () => ({
         account: '',
         password: '',
     }
-})
+});
 // 发送激活邮件
 export const sendConfirmMail = () => dispatch => {
     axios.get('/api/users/confirmation')
@@ -62,5 +62,5 @@ export const sendConfirmMail = () => dispatch => {
                 dispatch(setCurrentUser({}));
             }
         });
-}
+};
 

@@ -40,7 +40,7 @@ class List extends React.PureComponent {
                         >阅读更多</LoadMore> : null
                 }
             </ul>
-        )
+        );
     }
 }
 
@@ -50,13 +50,13 @@ const mapStateToProps = state => {
         pageIndex: state.getIn(['home', 'pageIndex']),
         totalPage: state.getIn(['home', 'totalPage']),
         searchValue: state.getIn(['header', 'searchValue']),
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     getMoreList(pageIndex, searchValue) {
         dispatch(actionCreators.getMoreList(pageIndex, searchValue));
     }
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

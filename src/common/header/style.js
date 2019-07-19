@@ -14,7 +14,7 @@ export const HeaderWrapper = styled.div`
     @media screen and (max-width: ${minscreenwidth}) {
         border: none;
     }
-`
+`;
 export const Logo = styled.div`
     float: left;
     height: 56px;
@@ -28,13 +28,13 @@ export const Logo = styled.div`
     @media screen and (max-width: ${minscreenwidth}) {
         display: none;
     }
-`
+`;
 export const Nav = styled.div`
     max-width: 1440px;
     margin: 0 auto;
     box-sizing: border-box;
     height: 100%;
-`
+`;
 export const ItemWrapper = styled.div`
     max-width: 960px;
     margin: 0 auto;
@@ -53,7 +53,7 @@ export const ItemWrapper = styled.div`
             display: none;
         }
     }
-`
+`;
 export const NavItem = styled.div`
     line-height: 56px;
     padding: 0 15px;
@@ -95,7 +95,7 @@ export const NavItem = styled.div`
         color: #ea6f5a;
     }
     cursor: pointer
-`
+`;
 export const SearchWrapper = styled.div`
     float: left;
     position: relative;
@@ -130,7 +130,7 @@ export const SearchWrapper = styled.div`
         max-width: 100%;
         width: 100%;
     }
-`
+`;
 export const NavSearch = styled.input.attrs({
     placeholder: '搜索'
 })`
@@ -156,7 +156,7 @@ export const NavSearch = styled.input.attrs({
     @media screen and (max-width: ${minscreenwidth}) {
         margin: 0 10px;
     }
-`
+`;
 export const Addition = styled.div`
     float: right;
     max-width: 220px;
@@ -164,7 +164,7 @@ export const Addition = styled.div`
     top: 0;
     height: 56px;
     margin-left: 20px;
-`
+`;
 export const Button = styled.div`
     float: right;
     line-height: 38px;
@@ -182,4 +182,4 @@ export const Button = styled.div`
         color: ${rrcolor};
     }
     cursor: pointer;
-`
+`;

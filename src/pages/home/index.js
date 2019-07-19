@@ -15,8 +15,33 @@ import {
 import { BackTop } from '../../common/BackTop/style.js';
 
 class Home extends React.PureComponent {
+    componentDidMount() {
+        this.bindScrollEvents();
+        // 获得初始化数据
+        this.props.getHomeData();
+        this.props.getBannerImg();
+        this.props.changePath(this.props.history.location.pathname);
+        // 更改标签页标题
+        document.title = '首页-rr';
+    }
+    // 在 window 上绑定了事件，可能会影响其他组件。在组件卸载的时候移除这个事件监听
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.props.changeScrollTopShow);
+    }
+
+    handleScrollTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    bindScrollEvents() {
+        window.addEventListener('scroll', this.props.changeScrollTopShow);
+    }
+
     render() {
-        const  { bannerImg, showScroll} = this.props;
+        const { bannerImg, showScroll } = this.props;
         return (
             <HomwWrapper>
                 <DailyWallpaper bannerImg={bannerImg} >
@@ -32,36 +57,12 @@ class Home extends React.PureComponent {
                     <List />
                 </HomwLeft>
                 <HomwRight>
-                    <Calendar callback={(date) => {console.log(date)}} />
+                    <Calendar callback={(date) => { console.log(date) }} />
                 </HomwRight>
                 {/* 回到顶部 */}
                 {showScroll ? <BackTop onClick={this.handleScrollTop}>BackTop</BackTop> : null}
             </HomwWrapper>
-        )
-    }
-    handleScrollTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }
-
-    bindScrollEvents() {
-        window.addEventListener('scroll', this.props.changeScrollTopShow);
-    }
-
-    componentDidMount() {
-        this.bindScrollEvents();
-        // 获得初始化数据
-        this.props.getHomeData();
-        this.props.getBannerImg();
-        this.props.changePath(this.props.history.location.pathname);
-        // 更改标签页标题
-        document.title = '首页-rr';
-    }
-    // 在 window 上绑定了事件，可能会影响其他组件。在组件卸载的时候移除这个事件监听
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.props.changeScrollTopShow);
+        );
     }
 }
 
@@ -80,9 +81,9 @@ const mapDispatchToProps = dispatch => ({
     changeScrollTopShow() {
         // toggleTopShow 显示或者隐藏回到顶部按钮的 actionCreator
         if (document.documentElement.scrollTop > 300) {
-            dispatch(actionCreators.toggleTopShow(true))
+            dispatch(actionCreators.toggleTopShow(true));
         } else {
-            dispatch(actionCreators.toggleTopShow(false))
+            dispatch(actionCreators.toggleTopShow(false));
         }
     },
     changePath(pathname) {

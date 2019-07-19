@@ -8,7 +8,7 @@ class Calendar extends React.Component {
         this.state = {
             // 今天的年月日周
             'tdYear': this.dateNow.getFullYear(),
-            'tdMonth': this.dateNow.getMonth(), //月份 0 到 11
+            'tdMonth': this.dateNow.getMonth(), // 月份 0 到 11
             'tdDate': this.dateNow.getDate(),
             'tdDay': this.dateNow.getDay(),
             // 选中的年月日周
@@ -16,7 +16,7 @@ class Calendar extends React.Component {
             'selecMonth': this.dateNow.getMonth(),
             'selecDate': this.dateNow.getDate(),
             'selecDay': this.dateNow.getDay(),
-        }
+        };
 
         this.props.callback({
             'year': this.dateNow.getFullYear(),
@@ -55,7 +55,7 @@ class Calendar extends React.Component {
             'date': d.getDate(),
             'day': d.getDay(),
             'show': show
-        }
+        };
         // 回调函数，参数为选中的年月日周组成的对象
         this.props.callback(selec);
     }
@@ -80,7 +80,7 @@ class Calendar extends React.Component {
         if (this.state.tdYear === this.state.selecYear
             && this.state.tdMonth === this.state.selecMonth
         ) {
-            return true
+            return true;
         } else {
             return false;
         }
@@ -106,8 +106,8 @@ class Calendar extends React.Component {
                 key={item}
                 onClick={() => this.setDate(this.state.selecYear, this.state.selecMonth, item)}
             >{item}
-            </td>)
-        })
+            </td>);
+        });
 
         // 上个月
         // 根据每月1号是周几，填充数组开头部分
@@ -132,7 +132,7 @@ class Calendar extends React.Component {
             </td>);
         }
         // 日历的每一行，值初始化为下标
-        let trArr = [...Array(7).keys()]
+        let trArr = [...Array(7).keys()];
 
         return (
             <div className="Calendar-wrap">
@@ -162,7 +162,7 @@ class Calendar extends React.Component {
                                     <tr key={item}>
                                         {tdArr.slice(index * 7, index * 7 + 7)}
                                     </tr>
-                                )
+                                );
                             })
                         }
                     </tbody>
@@ -176,7 +176,7 @@ class Calendar extends React.Component {
                     </tfoot>
                 </table>
             </div>
-        )
+        );
     }
 
 }

@@ -44,8 +44,8 @@ export const getList = () => {
         axios.get('/api/header.json').then(res => {
             const data = res.data;
             dispatch(changeList(data.data));
-        }).catch(()=>{
+        }).catch(() => {
             console.log('error');
         });
-    }
-}
+    };
+};

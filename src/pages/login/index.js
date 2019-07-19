@@ -12,33 +12,18 @@ import {
     Input,
     Button,
     Tip,
-} from './style.js'
+} from './style.js';
 
 class Login extends React.PureComponent {
     constructor() {
         super();
         this.state = {
-            account: '', //账号是邮箱或者用户名
+            account: '', // 账号是邮箱或者用户名
             password: '',
             errors: {}
-        }
+        };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleInputChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        const user = {
-            account: this.state.account,
-            password: this.state.password,
-        }
-        this.props.loginUser(user);
     }
 
     componentDidMount() {
@@ -52,6 +37,21 @@ class Login extends React.PureComponent {
     // 组件卸载时,清空 error
     componentWillUnmount() {
         this.props.clearErrors();
+    }
+
+    handleInputChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const user = {
+            account: this.state.account,
+            password: this.state.password,
+        };
+        this.props.loginUser(user);
     }
 
     render() {
@@ -73,23 +73,25 @@ class Login extends React.PureComponent {
                             placeholder="邮箱或者用户名"
                             name="account"
                             value={this.state.account}
-                            onChange={this.handleInputChange} />
+                            onChange={this.handleInputChange}
+                        />
                         <Tip>{errors.get('account')}</Tip>
                         <Input
                             placeholder="密码"
                             name="password"
                             type="password"
                             value={this.state.password}
-                            onChange={this.handleInputChange} />
+                            onChange={this.handleInputChange}
+                        />
                         <Tip>{errors.get('password')}</Tip>
                         <Button
                             onClick={this.handleSubmit}
                         >登录</Button>
                     </LoginBox>
                 </LoginWrapper>
-            )
+            );
         } else {
-            return <Redirect to="/" />
+            return <Redirect to="/" />;
         }
     }
 }

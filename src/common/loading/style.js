@@ -8,7 +8,7 @@ export const LoadingWrapper = styled.div`
     bottom: 0;
     top: 0;
     background-color: #fff;
-`
+`;
 export const Loading = styled.div`
     position: absolute;
     left: 50%;
@@ -20,4 +20,4 @@ export const Loading = styled.div`
     background: url(${loadingPic});
     background-size: contain;
     background-repeat: no-repeat;
-`
+`;

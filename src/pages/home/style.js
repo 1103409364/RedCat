@@ -21,7 +21,7 @@ export const HomwWrapper = styled.div`
         width: 100%;
         padding: 10px;
     }
-`
+`;
 export const HomwLeft = styled.div`
     float: left;
     width: 66%;
@@ -29,13 +29,13 @@ export const HomwLeft = styled.div`
     @media screen and (max-width: 900px) {
         width: 100%;
     }
-`
+`;
 export const HomwRight = styled.div`
     width: 280px;
     float: right;
     @media screen and (max-width: 900px) {
         display: none;
-`
+`;
 export const DailyWallpaper = styled.div`
     background: url(${props => props.bannerImg}) no-repeat center center;
     background-size: 960px auto;
@@ -66,14 +66,14 @@ export const DailyWallpaper = styled.div`
             opacity: 1;
         }
     }
-`
+`;
 
 export const TopicWrapper = styled.div`
     padding: 20px 0 10px 0;
     // margin-left: -18px;
     overflow: hidden;
     border-bottom: 1px solid #dcdcdc;
-`
+`;
 export const TopicItem = styled.div`
     float: left;
     height: 32px;
@@ -91,7 +91,7 @@ export const TopicItem = styled.div`
         text-decoration: none;
         color: #333;
     }
-`
+`;
 export const LinkMore = styled.div`
     float: left;
     height: 32px;
@@ -104,7 +104,7 @@ export const LinkMore = styled.div`
         text-decoration: none;
         color: #888;
     }
-`
+`;
 export const ListItem = styled.div`
     padding: 20px 0;
     border-bottom: 1px solid #dcdcdc;
@@ -116,7 +116,7 @@ export const ListItem = styled.div`
         border-radius: 10px;
     }
     
-`
+`;
 export const ListContent = styled.div`
     width: 100%;
     float: left;
@@ -142,13 +142,13 @@ export const ListContent = styled.div`
         line-height: 20px;
     }
     
-`
+`;
 
 export const AuthorsTitle = styled.div`
     font-size: 14px;
     color: #787878;
     margin-bottom: 20px;
-`
+`;
 export const AuthorsSwitch = styled.div`
     font-size: 13px;
     float: right;
@@ -162,13 +162,13 @@ export const AuthorsSwitch = styled.div`
         // 围绕中心点旋转
         transform-origin: center center;
     }
-`
+`;
 export const AuthorsItemWrap = styled.ul`
     a {
         text-decoration: none;
         color: #000;
     }
-`
+`;
 export const AuthorsItem = styled.li`
     overflow: hidden;
     margin-bottom: 15px;
@@ -199,7 +199,7 @@ export const AuthorsItem = styled.li`
         color: #42c02e;
     }
 
-`
+`;
 export const AuthorsMore = styled.div`
     text-align: center;
     padding: 7px 7px 7px 12px;
@@ -216,8 +216,8 @@ export const AuthorsMore = styled.div`
         }
     }
 
-`
-export const LoadMore =styled.div`
+`;
+export const LoadMore = styled.div`
     width: 100%;
     height: 40px;
     line-height: 40px;
@@ -227,8 +227,8 @@ export const LoadMore =styled.div`
     border-radius: 20px;
     cursor: pointer;
     color: #fff;
-`
-export const BackTop =styled.div`
+`;
+export const BackTop = styled.div`
     color: #999;
     position: fixed;
     right: 100px;
@@ -241,4 +241,4 @@ export const BackTop =styled.div`
     border: 1px solid #dcdcdc;
     border-radius: 4px;
     cursor: pointer;
-`
+`;

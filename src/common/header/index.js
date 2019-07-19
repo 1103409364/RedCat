@@ -22,14 +22,14 @@ import {
 
 class Header extends React.PureComponent {
     render() {
-        const { focused, mouseIn, handleMouseEnter, handleMouseLeave, handleInputFocus, handleInputBlur,handleInputChange,handleSearach, logoutUser, history, user, isAuthenticated, sendConfirmMail, pathname, searchValue } = this.props;
+        const { focused, mouseIn, handleMouseEnter, handleMouseLeave, handleInputFocus, handleInputBlur, handleInputChange, handleSearach, logoutUser, history, user, isAuthenticated, sendConfirmMail, pathname, searchValue } = this.props;
         const activeItem = {
             '/write': '写文章',
-        }
+        };
         const homeClass = classNames({
             'home': true,
             'left': true,
-            'active': pathname === '/' //根据当前路径改变class 从而改变样式
+            'active': pathname === '/' // 根据当前路径改变class 从而改变样式
         });
 
         return (
@@ -56,9 +56,9 @@ class Header extends React.PureComponent {
                             // 路由到注册页
                             // 登录成功的时候隐藏注册按钮
                             isAuthenticated ? null :
-                                <Link to="/register" >
-                                    <Button className="reg">注册</Button>
-                                </Link>
+                            <Link to="/register" >
+                                <Button className="reg">注册</Button>
+                            </Link>
                         }
 
                     </Addition>
@@ -106,15 +106,15 @@ class Header extends React.PureComponent {
                                         onFocus={() => handleInputFocus()}
                                         onBlur={handleInputBlur}
                                         onChange={handleInputChange}
-                                        onKeyDown = {(e) => {
+                                        onKeyDown={(e) => {
                                             // 监听回车
-                                            if(e.keyCode === 13) {
-                                                if(!isAuthenticated) {
+                                            if (e.keyCode === 13) {
+                                                if (!isAuthenticated) {
                                                     alert('请登录后在再进行搜索操作');
                                                     history.push('/login');
                                                     return;
                                                 }
-                                                handleSearach(searchValue);}}}
+                                                handleSearach(searchValue); } }}
                                         className={focused ? 'focused' : ''}
                                     />
                                     {/* 当鼠标进入放大镜或者输入框取得焦点时, 改变放大镜样式 */}
@@ -122,19 +122,19 @@ class Header extends React.PureComponent {
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}
                                         onClick={() => {
-                                            if(!isAuthenticated) {
+                                            if (!isAuthenticated) {
                                                 alert('请登录后在再进行搜索操作');
                                                 history.push('/login');
                                                 return;
                                             }
-                                            handleSearach(searchValue)}}
+                                            handleSearach(searchValue); }}
                                     >&#xe600;</i>
                                 </SearchWrapper> : null
                         }
                     </ItemWrapper>
                 </Nav>
             </HeaderWrapper>
-        )
+        );
     }
 }
 
@@ -153,8 +153,8 @@ const mapStateToProps = state => {
         isAuthenticated: state.getIn(['login', 'isAuthenticated']),
         user: state.getIn(['login', 'user']),
         searchValue: state.get('header').get('searchValue'),
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -190,7 +190,7 @@ const mapDispatchToProps = dispatch => {
         sendConfirmMail() {
             dispatch(loginActionCreators.sendConfirmMail());
         }
-    }
-}
+    };
+};
 // withRouter() 之后获得 history,可以进行跳转
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

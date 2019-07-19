@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const BackTop =styled.div`
+export const BackTop = styled.div`
     color: #999;
     position: fixed;
     right: 2%;
@@ -15,4 +15,4 @@ export const BackTop =styled.div`
     cursor: pointer;
     background-color: #fff;
     opacity: 0.8;
-`
+`;

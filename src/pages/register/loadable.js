@@ -17,8 +17,8 @@ const LoadableComponent = Loadable({
             <LoadingWrapper>
                 <Loading></Loading>
             </LoadingWrapper>
-        )
+        );
     }
 });
 // 导出一个无状态组件
-export default () => <LoadableComponent />
+export default () => <LoadableComponent />;

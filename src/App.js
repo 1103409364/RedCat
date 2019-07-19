@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-//BrowserRouter 刷新报错 改用 HashRouter
+// BrowserRouter 刷新报错 改用 HashRouter
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Header from './common/header';
 import Home from './pages/home/loadable.js';
@@ -29,12 +29,12 @@ if (localStorage.jwtToken) {
     store.dispatch(actionCreators.setCurrentUser(decoded));
 
     const currentTime = Date.now() / 1000;
-     // 检测 token 是否过期
+    // 检测 token 是否过期
     if (decoded.exp < currentTime) {
         // 过期退出
         store.dispatch(actionCreators.logoutUser());
         // 跳转到登录页
-        window.location.href = '/login'
+        window.location.href = '/login';
     }
 }
 
@@ -45,12 +45,12 @@ function App() {
             <Iconfont />
             <Router>
                 <Header />
-                <Route path='/' exact component={Home}></Route>
+                <Route path="/" exact component={Home}></Route>
                 {/* 要求传递一个 id */}
-                <Route path='/detail/:id' exact component={Detail}></Route>
-                <Route path='/write/' exact component={Write}></Route>
-                <Route path='/login/' exact component={Login}></Route>
-                <Route path='/register/' exact component={Register}></Route>
+                <Route path="/detail/:id" exact component={Detail}></Route>
+                <Route path="/write/" exact component={Write}></Route>
+                <Route path="/login/" exact component={Login}></Route>
+                <Route path="/register/" exact component={Register}></Route>
             </Router>
         </Provider>
     );

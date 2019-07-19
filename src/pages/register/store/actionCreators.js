@@ -18,8 +18,8 @@ export const registerUser = (user, history) => dispatch => {
                 type: actionTypes.GET_ERRORS,
                 payload: err.response.data
             });
-        })
-}
+        });
+};
 
 // 清空错误信息
 export const clearErrors = () => ({
@@ -30,4 +30,4 @@ export const clearErrors = () => ({
         password: '',
         password_confirm: ''
     }
-})
+});

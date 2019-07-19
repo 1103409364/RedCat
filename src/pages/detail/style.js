@@ -18,14 +18,14 @@ export const DetailWrapper = styled.div`
         width: 100%;
         padding: 10px;
     }
-`
+`;
 export const Header = styled.div`
     margin-top: 50px 0 20px 0;
     line-height: 44px;
     font-size: 34px;
     color: #333;
     font-weight: bold;
-`
+`;
 export const Author = styled.div`
     .info {
         font-size: 14px;
@@ -49,8 +49,8 @@ export const Author = styled.div`
             }
         }
     }
-`
+`;
 export const Content = styled.div`
     color: #2f2f2f;
     margin-top: 30px;
-`
+`;
